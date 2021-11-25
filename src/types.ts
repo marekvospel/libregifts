@@ -5,5 +5,5 @@ export interface giftI {
     childName: string,
     childAge: string,
 
-    taken: false
+    taken: boolean
 }
