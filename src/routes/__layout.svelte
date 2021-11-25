@@ -3,12 +3,15 @@
 </script>
 
 
-<div class='container px-2 sm:px-8 lg:px-32'>
-  <Header />
-  <div class='w-screen h-96 dolnibrezany-img mb-4 -m-2
-  sm:sm:-mx-8
-  lg:mb-8 lg:-mx-32'></div>
-  <slot />
+<div class='w-full max-w-screen overflow-hidden min-h-screen flex flex-col justify-center'>
+  <div class='container self-center px-5 sm:px-8 lg:px-32'>
+    <Header />
+    <div class='absolute left-0 w-screen z-10 h-96 dolnibrezany-img'></div>
+    <div class='h-96 w-max'></div>
+    <div class='relative -my-12 z-20'>
+      <slot />
+    </div>
+  </div>
 </div>
 
 <style>

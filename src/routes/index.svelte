@@ -5,9 +5,9 @@
   import {initializeApp} from "@firebase/app";
   import {collection, getDocs, getFirestore} from '@firebase/firestore'
 
-  let db
+  let db;
 
-  export async function load ({ fetch }) {
+  export async function load (): Promise<{ props: { gifts: { [p: string]: giftI } } }> {
 
     initializeApp(firebaseConfig)
 
@@ -48,8 +48,13 @@
   export let gifts: { [id: string]: giftI } = {}
 </script>
 
-<div>
-  {#each Object.values(gifts) as gift}
-    <Gift {...gift} />
+<div class='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 align-center'>
+  {#each Object.values(gifts) as gift, index (index)}
+    <div class={`px-4 py-8 text-white font-semibold cursor-pointer ${index % 2 === 0 ? 'bg-db-blue-light' : 'bg-db-blue-dark'}
+    hover:bg-db-yellow
+    transition-colors duration-300
+    `}>
+      <Gift {...gift} />
+    </div>
   {/each}
 </div>
