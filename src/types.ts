@@ -3,7 +3,7 @@ export interface giftI {
     name: string,
 
     childName: string,
-    childAge: number,
+    childAge: string,
 
     taken: false
 }

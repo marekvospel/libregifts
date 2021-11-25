@@ -46,11 +46,12 @@
   })
 
   export let gifts: { [id: string]: giftI } = {}
+  const colors = ['bg-db-brown-dark', 'bg-db-blue-light', 'bg-db-grey-dark', 'bg-db-brown-light', 'bg-db-blue-dark',  'bg-db-grey-light']
 </script>
 
 <div class='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 align-center'>
-  {#each Object.values(gifts) as gift, index (index)}
-    <div class={`px-4 py-8 text-white font-semibold cursor-pointer ${index % 2 === 0 ? 'bg-db-blue-light' : 'bg-db-blue-dark'}
+  {#each Object.values(gifts).sort((a, b) => parseInt(a.childAge) - parseInt(b.childAge)) as gift, index (index)}
+    <div class={`px-4 py-8 text-white font-medium cursor-pointer ${colors[index % colors.length]}
     hover:bg-db-yellow
     transition-colors duration-300
     `}>

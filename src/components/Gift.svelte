@@ -44,7 +44,7 @@
 </script>
 
 <div class={ 'flex flex-col gap-2 ' + (taken ? 'line-through' : 'no-underline') }>
-    <p>{ name }</p>
+    <p class="font-black">{ name }</p>
     <p>{ childName } ({ childAge }let)</p>
     <!--<button class="px-4 py-2 rounded-md bg-blue-400" on:click={ reserveClick }>reserve</button>-->
 </div>
