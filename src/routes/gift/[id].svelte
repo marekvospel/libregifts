@@ -51,11 +51,11 @@
 
 	})
 
-let schema = yup.object().shape({
-	name: yup.string().required("Jmeno je povinne!"),
-	phone: yup.string().required("Telefon je povinny!"),
-	email: yup.string().required("Email je povinny!").email("Email neni platny!"),
-})
+	let schema = yup.object().shape({
+		name: yup.string().required("Jmeno je povinne!"),
+		phone: yup.string().required("Telefon je povinny!"),
+		email: yup.string().required("Email je povinny!").email("Email neni platny!"),
+	})
 	let errors = {}
 
 	async function validate(): Promise<void> {
@@ -64,8 +64,8 @@ let schema = yup.object().shape({
 			errors = {}
 		} catch (err) {
 			errors = err.inner.reduce((acc, err) => {
-        return { ...acc, [err.path]: err.message };
-      }, {});
+				return { ...acc, [err.path]: err.message };
+			}, {});
 		}
 	}
 
@@ -94,19 +94,31 @@ let schema = yup.object().shape({
 		<p>{ gift.childName } ({ gift.childAge}let)</p>
 	</div>
 	{#if !gift.taken}
-		<div class='bg-db-brown-light px-4 py-8'>
-			<form on:submit|preventDefault={ register } class='flex flex-col gap-2'>
-				<input class={`${ errors.name ? 'invalid' : ''}`} bind:value={formValues.name} on:input={validate} placeholder='Jmeno'>
-				<input class={`${ errors.phone ? 'invalid' : ''}`} bind:value={formValues.phone} on:input={validate} placeholder='Telefon'>
-				<input class={`${ errors.email ? 'invalid' : ''}`} bind:value={formValues.email} on:input={validate} placeholder='Email'>
-				<button type="submit">Registrovat</button>
+		<div class='bg-db-brown-light px-4 py-8 text-black'>
+			<form on:submit|preventDefault={ register } class='flex flex-col'>
+				<label for='name' class='text-white'>Jmeno:</label>
+				<input id='name' class={`outline-none p-1 bg-white border-solid border border-gray-400 focus:border-blue-600 ${ errors.name ? 'invalid' : ''}`} bind:value={formValues.name} on:input={validate}>
+				{#if errors.name}
+					<p class='text-red-500 text-xs'>{errors.name}</p>
+				{/if}
+				<label for='phone' class='text-white'>Telefon:</label>
+				<input id='phone' class={`outline-none p-1 bg-white border-solid border border-gray-400 focus:border-blue-600 ${ errors.phone ? 'invalid' : ''}`} bind:value={formValues.phone} on:input={validate}>
+				{#if errors.phone}
+					<p class='text-red-500 text-xs'>{errors.phone}</p>
+				{/if}
+				<label for='email' class='text-white'>Email:</label>
+				<input id='email' class={`outline-none p-1 bg-white border-solid border border-gray-400 focus:border-blue-600 ${ errors.email ? 'invalid' : ''}`} bind:value={formValues.email} on:input={validate}>
+				{#if errors.email}
+					<p class='text-red-500 text-xs'>{errors.email}</p>
+				{/if}
+				<button class='mt-4 text-white' type="submit">Registrovat</button>
 			</form>
 		</div>
 	{/if}
 </div>
 
 <style>
-	.invalid {
-			@apply border-red-600;
-	}
+    .invalid {
+        @apply border-red-500;
+    }
 </style>
