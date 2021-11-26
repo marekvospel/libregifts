@@ -36,7 +36,8 @@
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1",
-    "firebase": "^9.5.0"
+    "firebase": "^9.5.0",
+    "yup": "^0.32.11"
   },
   "main": "index.js",
   "license": "AGPL-3.0-only",

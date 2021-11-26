@@ -1,86 +1,114 @@
 <script lang="ts" context="module">
-  import type {giftI} from "../../types";
-  import {initializeApp} from "@firebase/app";
-  import {firebaseConfig} from "../../firebase";
-  import {doc, getDoc, getFirestore} from "@firebase/firestore";
+	import type {giftI} from "../../types";
+	import {initializeApp} from "@firebase/app";
+	import {firebaseConfig} from "../../firebase";
+	import {doc, getDoc, getFirestore} from "@firebase/firestore";
 
-  let db;
+	let db;
 
-  /** @type {import('@sveltejs/kit').RequestHandler} */
-  export async function load({ page }) {
+	/** @type {import('@sveltejs/kit').RequestHandler} */
+	export async function load({ page }) {
 
-    if (!page.params.id) return {}
+		if (!page.params.id) return {}
 
-    initializeApp(firebaseConfig)
+		initializeApp(firebaseConfig)
 
-    db = getFirestore();
+		db = getFirestore();
 
-    const gift = await getDoc(doc(db, 'gifts', page.params?.id));
+		const gift = await getDoc(doc(db, 'gifts', page.params?.id));
 
-    if (gift.exists())
-        return { props: { ...page?.params, gift: gift.data() }}
+		if (gift.exists())
+			return { props: { ...page?.params, gift: gift.data() }}
 
-    return { props: { ...page?.params } }
-  }
+		return { props: { ...page?.params } }
+	}
 </script>
 
 <script lang="ts">
-    import {addDoc, collection, DocumentData, onSnapshot} from "@firebase/firestore";
-    import {onMount} from "svelte";
+	import {onSnapshot} from '@firebase/firestore';
+	import {onMount} from 'svelte';
+	import * as yup from 'yup'
 
-  export let id = ''
-  export let gift: giftI = null
+	export let id = ''
+	export let gift: giftI = null
 
-  let giverName = ''
-  let giverPhone = ''
-  let giverEmail = ''
+	let formValues = {
+		name: '',
+		phone: '',
+		email: '',
+	}
+	let sending = false
 
-  onMount(async () => {
+	onMount(async () => {
 
-    const giftRef = doc(db, 'gifts', id)
+		const giftRef = doc(db, 'gifts', id)
 
-    onSnapshot(giftRef, async (g) => {
-      if (g.exists()) {
-          gift = g.data()
-      }
-    })
+		onSnapshot(giftRef, async (g) => {
+			if (g.exists()) {
+				gift = g.data()
+			}
+		})
 
-  })
+	})
 
-  async function register() {
-    if (gift.taken) return false
+let schema = yup.object().shape({
+	name: yup.string().required("Jmeno je povinne!"),
+	phone: yup.string().required("Telefon je povinny!"),
+	email: yup.string().required("Email je povinny!").email("Email neni platny!"),
+})
+	let errors = {}
 
-    const db = getFirestore()
+	function validate(): void {
+		console.log('test')
+		try {
+			schema.validate(formValues, { abortEarly: false })
+			errors = {}
+		} catch (err) {
+			errors = err.inner.reduce((acc, err) => {
+        return { ...acc, [err.path]: err.message };
+      }, {});
+		}
+		console.log(errors)
+	}
 
-    const giverRef = collection(db, 'givers')
+	async function register() {
+		validate()
+		if (gift.taken || Object.values(errors).length >= 1) return false
 
-    console.log(id)
-
-    try {
-      await addDoc(giverRef, {
-        name: giverName,
-        phone: giverPhone,
-        email: giverEmail,
-        gift: id
-        } as DocumentData)
-      } catch (e) {
-        console.error(e)
-        return false
-    }
-
-    return true
-  }
+		fetch(`https://us-central1-strom-splnenych-prani-db.cloudfunctions.net/gift/${id}`, { method: 'POST', body: JSON.stringify({
+				name: formValues.name,
+				phone: formValues.phone,
+				email: formValues.email
+			}), headers: { 'Content-Type': 'application/json' }
+		})
+			.then(async res => {
+				return { res, json: await res.json()}
+			})
+			.then(res => {
+				console.log(res.res.status, res.json)
+			})
+	}
 </script>
 
-<div class='bg-gray-200 px-4 py-8'>
-  <p>{ gift.name }</p>
-  <p>{ gift.childName } ({ gift.childAge}let)</p>
-  {#if !gift.taken}
-    <form on:submit|preventDefault={ register } class='flex flex-col gap-2'>
-      <input bind:value={giverName} placeholder='Jmeno'>
-      <input bind:value={giverPhone} placeholder='Telefon'>
-      <input bind:value={giverEmail} placeholder='Email'>
-      <button type="submit">Registrovat</button>
-    </form>
-  {/if}
+<div class='grid grid-cols-1 md:grid-cols-2 gap-5 text-white'>
+	<div class='bg-db-blue-light px-4 py-8'>
+		<p>{ gift.name }</p>
+		<p>{ gift.childName } ({ gift.childAge}let)</p>
+	</div>
+	{#if !gift.taken}
+		<div class='bg-db-brown-light px-4 py-8'>
+			<form on:submit|preventDefault={ register } class='flex flex-col gap-2'>
+				<input class={`${ errors.name ? 'invalid' : ''}`} bind:value={formValues.name} on:change={validate} placeholder='Jmeno'>
+				<input class={`${ errors.phone ? 'invalid' : ''}`} bind:value={formValues.phone} on:change={validate} placeholder='Telefon'>
+				<input class={`${ errors.email ? 'invalid' : ''}`} bind:value={formValues.email} on:change={validate} placeholder='Email'>
+				<button type="submit">Registrovat</button>
+			</form>
+		</div>
+	{/if}
 </div>
+
+<style>
+	.invalid {
+			@apply border-red-600;
+	}
+</style>
