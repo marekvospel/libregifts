@@ -58,21 +58,19 @@ let schema = yup.object().shape({
 })
 	let errors = {}
 
-	function validate(): void {
-		console.log('test')
+	async function validate(): Promise<void> {
 		try {
-			schema.validate(formValues, { abortEarly: false })
+			const validateResult = await schema.validate(formValues, {abortEarly: false});
 			errors = {}
 		} catch (err) {
 			errors = err.inner.reduce((acc, err) => {
         return { ...acc, [err.path]: err.message };
       }, {});
 		}
-		console.log(errors)
 	}
 
 	async function register() {
-		validate()
+		await validate()
 		if (gift.taken || Object.values(errors).length >= 1) return false
 
 		fetch(`https://us-central1-strom-splnenych-prani-db.cloudfunctions.net/gift/${id}`, { method: 'POST', body: JSON.stringify({
@@ -98,9 +96,9 @@ let schema = yup.object().shape({
 	{#if !gift.taken}
 		<div class='bg-db-brown-light px-4 py-8'>
 			<form on:submit|preventDefault={ register } class='flex flex-col gap-2'>
-				<input class={`${ errors.name ? 'invalid' : ''}`} bind:value={formValues.name} on:change={validate} placeholder='Jmeno'>
-				<input class={`${ errors.phone ? 'invalid' : ''}`} bind:value={formValues.phone} on:change={validate} placeholder='Telefon'>
-				<input class={`${ errors.email ? 'invalid' : ''}`} bind:value={formValues.email} on:change={validate} placeholder='Email'>
+				<input class={`${ errors.name ? 'invalid' : ''}`} bind:value={formValues.name} on:input={validate} placeholder='Jmeno'>
+				<input class={`${ errors.phone ? 'invalid' : ''}`} bind:value={formValues.phone} on:input={validate} placeholder='Telefon'>
+				<input class={`${ errors.email ? 'invalid' : ''}`} bind:value={formValues.email} on:input={validate} placeholder='Email'>
 				<button type="submit">Registrovat</button>
 			</form>
 		</div>
