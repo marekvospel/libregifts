@@ -38,7 +38,7 @@
 		email: '',
 	}
 	let sending = false
-	let successfullySent = false``
+	let successfullySent = false
 
 	onMount(async () => {
 
@@ -53,9 +53,9 @@
 	})
 
 	let schema = yup.object().shape({
-		name: yup.string().required("Jmeno je povinne!"),
-		phone: yup.string().required("Telefon je povinny!"),
-		email: yup.string().required("Email je povinny!").email("Email neni platny!"),
+		name: yup.string().required("Jméno je povinné!"),
+		phone: yup.string().required("Telefon je povinný!"),
+		email: yup.string().required("Email je povinný!").email("Email není platný!"),
 	})
 	let errors = {}
 
@@ -102,7 +102,7 @@
 	{#if !gift.taken}
 		<div class='bg-db-brown-light px-4 py-8 text-black'>
 			<form on:submit|preventDefault={ register } class='flex flex-col'>
-				<label for='name' class='text-white'>Jmeno:</label>
+				<label for='name' class='text-white'>Jméno:</label>
 				<input id='name' class={`outline-none p-1 bg-white border-solid border border-gray-400 focus:border-blue-600 ${ errors.name ? 'invalid' : ''}`} bind:value={formValues.name} on:input={validate}>
 				{#if errors.name}
 					<p class='text-red-500 text-xs'>{errors.name}</p>
@@ -121,18 +121,18 @@
 					{#if !sending}
 						Registrovat
 					{:else}
-						<div class='w-6 h-6 mx-5 border-solid border-t-2 rounded-full border-white animate-spin duration-300'></div> <!-- TODO: loader -->
+						<div class='w-6 h-6 mx-5 border-solid border-t-2 rounded-full border-white animate-spin duration-300'></div>
 					{/if}
 				</button>
 			</form>
 		</div>
 	{:else if successfullySent}
 		<div class='bg-db-brown-light px-4 py-8 text-green-500'>
-			Darek byl uspesne rezervovan
+			Dárek byl úspěšně zarezervován
 		</div>
 	{:else}
 		<div class='bg-db-brown-light px-4 py-8 text-white'>
-			Tento darek je jiz zabrany
+			Tento dárek je již zabrán
 		</div>
 	{/if}
 </div>
