@@ -38,6 +38,7 @@
 		email: '',
 	}
 	let sending = false
+	let successfullySent = false``
 
 	onMount(async () => {
 
@@ -60,7 +61,7 @@
 
 	async function validate(): Promise<void> {
 		try {
-			const validateResult = await schema.validate(formValues, {abortEarly: false});
+			await schema.validate(formValues, {abortEarly: false});
 			errors = {}
 		} catch (err) {
 			errors = err.inner.reduce((acc, err) => {
@@ -70,8 +71,11 @@
 	}
 
 	async function register() {
+		if (gift.taken || sending) return
 		await validate()
-		if (gift.taken || Object.values(errors).length >= 1) return false
+		if (Object.values(errors).length >= 1) return
+
+		sending = true
 
 		fetch(`https://us-central1-strom-splnenych-prani-db.cloudfunctions.net/gift/${id}`, { method: 'POST', body: JSON.stringify({
 				name: formValues.name,
@@ -80,10 +84,12 @@
 			}), headers: { 'Content-Type': 'application/json' }
 		})
 			.then(async res => {
+				sending = false
 				return { res, json: await res.json()}
 			})
 			.then(res => {
-				console.log(res.res.status, res.json)
+				if (!res.json.error)
+					successfullySent = true
 			})
 	}
 </script>
@@ -111,8 +117,22 @@
 				{#if errors.email}
 					<p class='text-red-500 text-xs'>{errors.email}</p>
 				{/if}
-				<button class='mt-4 text-white' type="submit">Registrovat</button>
+				<button class='mt-4 px-4 py-2 rounded-xl w-max mx-auto bg-db-yellow text-white' type="submit">
+					{#if !sending}
+						Registrovat
+					{:else}
+						<div class='w-6 h-6 mx-5 border-solid border-t-2 rounded-full border-white animate-spin duration-300'></div> <!-- TODO: loader -->
+					{/if}
+				</button>
 			</form>
+		</div>
+	{:else if successfullySent}
+		<div class='bg-db-brown-light px-4 py-8 text-green-500'>
+			Darek byl uspesne rezervovan
+		</div>
+	{:else}
+		<div class='bg-db-brown-light px-4 py-8 text-white'>
+			Tento darek je jiz zabrany
 		</div>
 	{/if}
 </div>
