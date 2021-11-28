@@ -1,44 +1,29 @@
-<script lang="ts" context="module">
-  import { firebaseConfig } from "../firebase";
-  import type {giftI} from "../types";
-
-  import {initializeApp} from "@firebase/app";
-  import {collection, getDocs, getFirestore} from '@firebase/firestore'
-
-  let db;
-
-  export async function load (): Promise<{ props: { gifts: { [p: string]: giftI } } }> {
-
-    initializeApp(firebaseConfig)
-
-    db = getFirestore();
-
-    const giftsRef = await getDocs(collection(db, 'gifts'))
-
-    let giftsP: { [id: string]: giftI } = {}
-
-    giftsRef.forEach(giftRef => {
-        giftsP[giftRef.id] = { id: giftRef.id, ...giftRef.data() } as unknown as giftI
-    })
-
-    return { props: { gifts: giftsP }}
-  }
-
-</script>
-
 <script lang="ts">
   import Gift from "../components/Gift.svelte";
 
   import {onMount} from "svelte";
-  import {onSnapshot} from "@firebase/firestore";
+  import { getFirestore, onSnapshot, getDocs, collection } from '@firebase/firestore';
+  import { firebaseConfig } from '../firebase';
+  import { initializeApp } from '@firebase/app';
+  import type { giftI } from '../types';
 
   onMount(async () => {
 
+    initializeApp(firebaseConfig)
+
+    const db = getFirestore();
+
     const giftsCollection = collection(db, 'gifts')
+
+    const giftsCol = await getDocs(giftsCollection)
+    giftsCol.forEach((doc) => {
+      gifts[doc.id] = { id: doc.id, ...doc.data() } as giftI
+    })
+
 
     onSnapshot(giftsCollection, async (col) => {
       col.forEach((doc) => {
-        gifts[doc.id] = { id: doc.id, ...doc.data() }
+        gifts[doc.id] = { id: doc.id, ...doc.data() } as giftI
       })
     })
 

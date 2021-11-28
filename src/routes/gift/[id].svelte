@@ -1,8 +1,4 @@
 <script lang="ts" context="module">
-	import type {giftI} from "../../types";
-	import {initializeApp} from "@firebase/app";
-	import {firebaseConfig} from "../../firebase";
-	import {doc, getDoc, getFirestore} from "@firebase/firestore";
 
 	let db;
 
@@ -11,26 +7,20 @@
 
 		if (!page.params.id) return {}
 
-		initializeApp(firebaseConfig)
-
-		db = getFirestore();
-
-		const gift = await getDoc(doc(db, 'gifts', page.params?.id));
-
-		if (gift.exists())
-			return { props: { ...page?.params, gift: gift.data() }}
-
 		return { props: { ...page?.params } }
 	}
 </script>
 
 <script lang="ts">
-	import {onSnapshot} from '@firebase/firestore';
+	import {initializeApp} from "@firebase/app";
+	import {doc, getDoc, getFirestore, onSnapshot} from "@firebase/firestore";
 	import {onMount} from 'svelte';
 	import * as yup from 'yup'
+	import type {giftI} from "../../types";
+	import {firebaseConfig} from "../../firebase";
 
 	export let id = ''
-	export let gift: giftI = null
+	export let gift: giftI = { childAge: '', childName: '', id: '', name: '', taken: false }
 
 	let formValues = {
 		name: '',
@@ -42,11 +32,20 @@
 
 	onMount(async () => {
 
+		initializeApp(firebaseConfig)
+
+		const db = getFirestore()
+
 		const giftRef = doc(db, 'gifts', id)
+
+		const g1 = await getDoc(giftRef)
+
+		if (g1.exists())
+			gift = g1.data() as giftI
 
 		onSnapshot(giftRef, async (g) => {
 			if (g.exists()) {
-				gift = g.data()
+				gift = g.data() as giftI
 			}
 		})
 

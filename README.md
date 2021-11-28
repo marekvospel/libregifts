@@ -1,38 +1,21 @@
-# create-svelte
-
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+[![wakatime](https://wakatime.com/badge/github/marekvospel/Strom-Splnenych-Prani.svg)](https://wakatime.com/badge/github/marekvospel/Strom-Splnenych-Prani)
+#Strom Splněných Přání
+Every year, in Dolní Břežany, there was an event, where a Christmas tree was lit. During this event, people can register to give a small gift to a child from an orphanage in Pyšely, the kid really wanted.  
+Sadly because of this year's COVID-19 situation, this event has been cancelled, so this website has been created, so people can register for this online.  
+  
+This project has been created in 3 days using Firebase, TailwindCSS and SvelteKit.
 
 ## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
+### Requirements
+Node 14+, Yarn
+### Building
 ```bash
-npm run build
+yarn install
+yarn build
 ```
+This project uses `@sveltejs/adapter-auto`. If you want to build a node script or a static site, you will have to either modify adapters.js or change adapter to `@sveltejs/adapter-node` or `@sveltejs/adapter-static` inside svelte.config.js
 
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+## Screenshots
+
+[![Homepage](./screenshots/index.png)]()
+[![Gift](./screenshots/gift-id.png)]()
