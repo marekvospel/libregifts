@@ -34,7 +34,7 @@
 </script>
 
 <div class='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 align-center'>
-  {#each Object.values(gifts).sort((a, b) => parseInt(a.childAge) - parseInt(b.childAge)) as gift, index (index)}
+  {#each Object.values(gifts).sort((a, b) => parseInt(a.childAge) - parseInt(b.childAge) - (b.taken ? Infinity : 0)) as gift, index (index)}
     <a href={gift.taken ? '/' : `/gift/${gift.id}`} class={`px-4 py-8 text-white font-medium cursor-pointer ${colors[index % colors.length]}
     hover:bg-db-yellow
     transition-colors duration-300
