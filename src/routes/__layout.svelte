@@ -1,3 +1,15 @@
+<script lang="ts" context="module">
+  import {initializeApp} from "firebase/app";
+  import {firebaseConfig} from "../firebase";
+
+  /** @type {import('@sveltejs/kit').RequestHandler} */
+  export async function load() {
+    await initializeApp(firebaseConfig);
+    return {
+      props: {},
+    };
+  }
+</script>
 <script lang="ts">
   import Header from '../components/Header.svelte'
 </script>

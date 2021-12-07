@@ -3,13 +3,9 @@
 
   import {onMount} from "svelte";
   import { getFirestore, onSnapshot, getDocs, collection } from '@firebase/firestore';
-  import { firebaseConfig } from '../firebase';
-  import { initializeApp } from '@firebase/app';
   import type { giftI } from '../types';
 
   onMount(async () => {
-
-    initializeApp(firebaseConfig)
 
     const db = getFirestore();
 

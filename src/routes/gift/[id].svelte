@@ -12,12 +12,10 @@
 </script>
 
 <script lang="ts">
-	import {initializeApp} from "@firebase/app";
 	import {doc, getDoc, getFirestore, onSnapshot} from "@firebase/firestore";
 	import {onMount} from 'svelte';
 	import * as yup from 'yup'
 	import type {giftI} from "../../types";
-	import {firebaseConfig} from "../../firebase";
 
 	export let id = ''
 	export let gift: giftI = { childAge: '', childName: '', id: '', name: '', taken: false }
@@ -31,8 +29,6 @@
 	let successfullySent = false
 
 	onMount(async () => {
-
-		initializeApp(firebaseConfig)
 
 		const db = getFirestore()
 
