@@ -3,6 +3,7 @@ import { AppDataSource } from '../../index'
 import { getJson } from '../../utils/json.util'
 import { User } from 'orm'
 import { validationResult } from 'express-validator'
+import { secret } from '../../utils/jwt.util'
 
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
@@ -31,7 +32,7 @@ export async function postSignIn(req: Request, res: Response) {
   delete userJson?.['password']
   userJson['expire'] = Date.now() + (7 * 24 * 60 * 60)
 
-  const token = jwt.sign(userJson, 'abc123')
+  const token = jwt.sign(userJson, secret)
 
   res.json({ success, token })
 }
