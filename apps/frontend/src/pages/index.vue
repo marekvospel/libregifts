@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import ListGift from '../components/ListGift.vue'
+import GHeader from '../components/GHeader.vue'
 </script>
 
 <template>
-  <div class="gifts">
-    <list-gift />
-    <list-gift />
+  <div class="home-layout">
+    <g-header />
+    <div class="gifts">
+      <list-gift />
+      <list-gift />
+    </div>
   </div>
 </template>
 

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev src/index.ts --watch",
-    "lint": "eslint --fix --ext .js,.ts src"
+    "dev": "FORCE_COLOR=1 ts-node-dev src/index.ts --watch",
+    "lint": "FORCE_COLOR=1 eslint --fix --ext .js,.ts src"
   },
   "keywords": [],
   "author": "",

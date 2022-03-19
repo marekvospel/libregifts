@@ -8,26 +8,42 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   title: 'Lorem ipsum dolor sit amet.',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda consectetur debitis dolorem ducimus expedita facilis id itaque modi molestias nemo non nulla odio odit officia perspiciatis quas quasi, repellat sapiente tempore tenetur vero voluptates voluptatibus. Dolorem earum maiores voluptatum?'
+  description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda consectetur debitis dolorem ducimus expedita facilis id itaque modi molestias nemo non nulla odio odit officia perspiciatis quas quasi, repellat sapiente tempore tenetur vero voluptates voluptatibus. Dolorem earum maiores voluptatum?',
 })
 
 </script>
 
 <template>
   <div class="list-gift">
-    <h3>{{ props.title}}</h3>
+    <h3 class="text-h3">{{ props.title}}</h3>
     <p>{{ props.description }}</p>
-    <g-button>Give</g-button>
+    <div class="gift-buttons">
+      <g-button>Darovat</g-button>
+    </div>
   </div>
 </template>
 
 <style scoped>
-
 .list-gift {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-  padding: 1rem;
+  padding: 1.5rem;
 
-  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 0.75rem;
+  background: var(--white-97);
+}
+
+h3 {
+  text-align: center;
+}
+
+.gift-buttons {
+  display: flex;
+  flex-direction: column;
+
+  margin: 2rem 0 0;
 }
 
 </style>
