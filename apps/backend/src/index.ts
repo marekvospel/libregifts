@@ -2,7 +2,6 @@ import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 import { entities } from 'orm'
 import Express, { json } from 'express'
-import * as console from 'console'
 import { router } from './router'
 
 export const AppDataSource = new DataSource({

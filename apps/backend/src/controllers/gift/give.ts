@@ -3,7 +3,6 @@ import { validationResult } from 'express-validator'
 import { verifyDecode } from '../../utils/jwt.util'
 import { Gift, Giver } from 'orm'
 import { AppDataSource } from '../../index'
-import * as console from 'console'
 
 export async function giveGift(req: Request, res: Response) {
 
