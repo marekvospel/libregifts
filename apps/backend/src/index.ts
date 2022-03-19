@@ -12,6 +12,7 @@ export const AppDataSource = new DataSource({
   username: 'test',
   password: 'test',
   database: 'test',
+  charset: 'utf8mb4_unicode_ci',
   synchronize: false,
   logging: false,
   entities: entities,

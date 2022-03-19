@@ -10,7 +10,13 @@ export function verifyDecode(req: Request): boolean | string | JwtPayload {
   if (!token) return false
 
   try {
-    return jwt.verify(token, secret)
+    const data = jwt.verify(token, secret)
+    if (!data?.['expire']) return false
+    if (data['expire'] <= Date.now()) return false
+
+    // TODO: verify user's existence
+
+    return data
   } catch {
     return false
   }

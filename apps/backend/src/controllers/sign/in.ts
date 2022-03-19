@@ -30,7 +30,7 @@ export async function postSignIn(req: Request, res: Response) {
 
   const userJson = getJson(user)
   delete userJson?.['password']
-  userJson['expire'] = Date.now() + (7 * 24 * 60 * 60)
+  userJson['expire'] = Date.now() + (7 * 24 * 60 * 60 * 1000)
 
   const token = jwt.sign(userJson, secret)
 

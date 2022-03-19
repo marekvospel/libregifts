@@ -3,6 +3,7 @@ import { validationResult } from 'express-validator'
 import { AppDataSource } from '../../index'
 import { Gift } from 'orm'
 import { getJson } from '../../utils/json.util'
+import { verifyDecode } from '../../utils/jwt.util'
 
 export async function getGift(req: Request, res: Response) {
 
@@ -11,14 +12,19 @@ export async function getGift(req: Request, res: Response) {
   if (!errors.isEmpty())
     return res.status(400).json({ success: false, errors: errors.array() })
 
-  const gift = await AppDataSource.manager.getRepository(Gift).findOne({ where: { id: req.params.id } })
+  const gift = await AppDataSource.manager.getRepository(Gift).findOne({
+    where: { id: req.params.id },
+    relations: {
+      giver: true,
+    },
+  })
 
   if (!gift)
-    return res.status(400).json({ success: false, errors: [{ msg: 'There is no gift with that id!' }] })
+    return res.status(404).json({ success: false, errors: [{ msg: 'There is no gift with that id!' }] })
 
   const giftJson = getJson(gift)
-  // TODO: only delete if user isn't authenticated
-  delete giftJson['giver']
+  const user = verifyDecode(req)
+  if (!user) delete giftJson['giver']
   giftJson['taken'] = !!gift.giver
 
   res.status(200).json({ success: true, gift: giftJson })

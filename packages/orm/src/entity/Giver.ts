@@ -10,6 +10,15 @@ export class Giver {
   @Column()
     name: string
 
+  @Column()
+    email: string
+
+  @Column()
+    phone: string
+
+  @Column()
+    address: string
+
   @OneToOne(() => Gift, gift => gift.giver)
     gift: Gift
 }

@@ -3,17 +3,28 @@ import { body, param } from 'express-validator'
 import { createGift } from '../../controllers/gift/create'
 import { getGift } from '../../controllers/gift/get'
 import { deleteGift } from '../../controllers/gift/delete'
+import { giveGift } from '../../controllers/gift/give'
 
 export const giftRouter = Router()
 
 giftRouter.post('/',
   body('name').isString(),
-  (req, res) => createGift(req, res))
+  createGift)
 
 giftRouter.get('/:id',
   param('id').isUUID(),
-  (req, res) => getGift(req, res))
+  getGift)
 
 giftRouter.delete('/:id',
   param('id').isUUID(),
-  (req, res) => deleteGift(req, res))
+  deleteGift)
+
+giftRouter.post('/:id/give',
+  param('id').isUUID(),
+  body('name').isString(),
+  body('email').isEmail(),
+  body('phone').isMobilePhone('any'),
+  body('street').isString(),
+  body('city').isString(),
+  body('zip').isNumeric(),
+  giveGift)
