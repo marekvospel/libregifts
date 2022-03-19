@@ -4,8 +4,8 @@ import { Gift } from './Gift'
 @Entity()
 export class Giver {
 
-  @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn('uuid')
+    id: string
 
   @Column()
     name: string

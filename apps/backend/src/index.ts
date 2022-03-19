@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
-import { Permission, User } from 'orm'
+import { entities } from 'orm'
 import Express, { json } from 'express'
 import * as console from 'console'
 import { router } from './router'
@@ -14,7 +14,7 @@ export const AppDataSource = new DataSource({
   database: 'test',
   synchronize: false,
   logging: false,
-  entities: [User, Permission],
+  entities: entities,
   migrations: [],
   subscribers: [],
 })
