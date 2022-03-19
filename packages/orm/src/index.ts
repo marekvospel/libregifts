@@ -4,7 +4,6 @@ import * as bcrypt from 'bcrypt'
 
 import { User } from './entity/User'
 import { Permission } from './entity/Permission'
-import * as console from 'console'
 
 AppDataSource.initialize().then(async () => {
 
