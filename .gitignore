@@ -31,3 +31,10 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# intellij
+.idea/*
+!.idea/jsLinters/
+!.idea/codeStyles/
+!.idea/runConfigurations/
+!.idea/strom-splnenych-prani.iml

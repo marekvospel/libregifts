@@ -9,12 +9,14 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "preview": "turbo run preview"
+    "lint": "turbo run lint"
   },
   "devDependencies": {
-    "turbo": "latest"
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "eslint": "^8.11.0",
+    "turbo": "latest",
+    "typescript": "^4.6.2"
   },
   "engines": {
     "npm": ">=7.0.0",
