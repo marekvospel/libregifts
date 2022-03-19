@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import ListGift from '../components/ListGift.vue'
 import GHeader from '../components/GHeader.vue'
+import { useStore } from '../stores/index.store'
+import { onMounted } from 'vue'
+
+const store = useStore()
+
+onMounted(() => {
+  store.fetchGifts()
+})
 </script>
 
 <template>
   <div class="home-layout">
     <g-header />
     <div class="gifts">
-      <list-gift />
-      <list-gift />
+      <list-gift v-for="gift in store.gifts.values()" :key="gift.id" :title="gift.name" :taken="gift.taken"/>
     </div>
   </div>
 </template>

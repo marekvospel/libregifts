@@ -4,11 +4,13 @@ import GButton from './GButton.vue'
 interface Props {
   title?: string,
   description?: string,
+  taken?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: 'Lorem ipsum dolor sit amet.',
   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda consectetur debitis dolorem ducimus expedita facilis id itaque modi molestias nemo non nulla odio odit officia perspiciatis quas quasi, repellat sapiente tempore tenetur vero voluptates voluptatibus. Dolorem earum maiores voluptatum?',
+  taken: false,
 })
 
 </script>
