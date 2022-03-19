@@ -11,7 +11,7 @@ export async function deleteGift(req: Request, res: Response) {
   if (!errors.isEmpty())
     return res.status(400).json({ success: false, errors: errors.array() })
 
-  const user = verifyDecode(req)
+  const user = await verifyDecode(req)
 
   if (!user)
     return res.status(401).json({ success: false, errors: [{ msg: 'Unauthorized!' }] })

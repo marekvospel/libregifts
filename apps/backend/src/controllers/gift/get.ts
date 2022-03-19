@@ -7,7 +7,7 @@ import { verifyDecode } from '../../utils/jwt.util'
 
 export async function getGift(req: Request, res: Response) {
 
-  const errors = validationResult(req)
+  const errors = await validationResult(req)
 
   if (!errors.isEmpty())
     return res.status(400).json({ success: false, errors: errors.array() })

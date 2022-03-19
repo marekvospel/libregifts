@@ -27,7 +27,7 @@ export async function getGifts(req: Request, res: Response) {
     skip: (req.query.skip ?? 0) as number,
   })
 
-  const user = verifyDecode(req)
+  const user = await verifyDecode(req)
 
   const giftsObj = gifts.map((gift) => getJson(gift)).map((gift) => {
     gift['taken'] = !!gift['giver']
