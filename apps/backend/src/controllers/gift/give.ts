@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
-import { verifyDecode } from '../../utils/jwt.util'
 import { Gift, Giver } from 'orm'
 import { AppDataSource } from '../../index'
 
@@ -9,12 +8,7 @@ export async function giveGift(req: Request, res: Response) {
   const errors = validationResult(req)
 
   if (!errors.isEmpty())
-    return res.status(400).json({ success: false, errors })
-
-  const user = await verifyDecode(req)
-
-  if (!user)
-    return res.status(401).json({ success: false, errors: [{ msg: 'Unauthorized!' }] })
+    return res.status(400).json({ success: false, errors: errors.array() })
 
   const gift = await AppDataSource.manager.getRepository(Gift).findOne({
     where: { id: req.params.id },

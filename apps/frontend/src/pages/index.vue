@@ -15,7 +15,7 @@ onMounted(() => {
   <div class="home-layout">
     <g-header />
     <div class="gifts">
-      <list-gift v-for="gift in store.gifts.values()" :key="gift.id" v-bind="gift" />
+      <list-gift v-for="gift in store.gifts.values()" :key="gift.id" :="gift" />
     </div>
   </div>
 </template>

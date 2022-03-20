@@ -5,11 +5,13 @@ import { computed } from 'vue'
 interface Props {
   placeholder?: string
   value?: string
+  error?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: 'Email',
   value: '',
+  error: true,
 })
 
 const emit = defineEmits(['update:value'])
@@ -22,7 +24,7 @@ const value = computed({
 </script>
 
 <template>
-  <input type="text" v-model="value" :placeholder="props.placeholder">
+  <input type="text" v-model="value" :placeholder="props.placeholder" :class="{ error: props.error }">
 </template>
 
 <style scoped>
@@ -41,6 +43,10 @@ input {
 
 input:focus-within {
   outline-color: var(--accent-60);
+}
+
+input.error {
+  outline-color: var(--red-80);
 }
 
 </style>

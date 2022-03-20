@@ -8,8 +8,8 @@ import { giveGift } from '../../controllers/gift/give'
 export const giftRouter = Router()
 
 giftRouter.post('/',
-  body('name').isString(),
-  body('description').isString(),
+  body('name').isString().notEmpty(),
+  body('description').isString().notEmpty(),
   createGift)
 
 giftRouter.get('/:id',
@@ -22,7 +22,7 @@ giftRouter.delete('/:id',
 
 giftRouter.post('/:id/give',
   param('id').isUUID(),
-  body('name').isString(),
+  body('name').isString().notEmpty(),
   body('email').isEmail(),
   body('phone').isMobilePhone('any'),
   giveGift)

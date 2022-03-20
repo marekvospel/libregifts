@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import GiftForm from './GiftForm.vue'
+import { reactive } from 'vue'
 
 interface Props {
   id?: string
@@ -20,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
   <div class="list-gift">
     <h3 class="text-h3">{{ props.name}}</h3>
     <p>{{ props.description }}</p>
-    <gift-form v-if="!props.taken" class="gift-form" />
+    <gift-form v-if="!props.taken" class="gift-form" :id="props.id"/>
     <p v-else class="text-h3 gift-form">Tento dárek je již zabraný</p>
   </div>
 </template>
