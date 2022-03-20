@@ -1,8 +1,14 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
-import { entities } from 'orm'
 import Express, { json } from 'express'
+import { createTransport } from 'nodemailer'
+import { config } from 'dotenv'
+
+import { entities } from '@libregifts/orm'
+
 import { router } from './router'
+
+config()
 
 export const AppDataSource = new DataSource({
   type: 'mariadb',
@@ -17,6 +23,16 @@ export const AppDataSource = new DataSource({
   entities: entities,
   migrations: [],
   subscribers: [],
+})
+
+export const transporter = createTransport({
+  host: process.env?.SMTP_HOST ?? '',
+  port: (process.env?.SMTP_PORT ?? 465) as number,
+  secure: (process.env?.SMTP_SECURE === 'true'),
+  auth: {
+    user: process.env?.SMTP_USERNAME ?? '',
+    pass: process.env?.SMTP_PASSWORD ?? '',
+  },
 })
 
 AppDataSource.initialize().then(async () => {

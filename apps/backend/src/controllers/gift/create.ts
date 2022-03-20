@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import { verifyDecode } from '../../utils/jwt.util'
-import { Gift } from 'orm'
+import { Gift } from '@libregifts/orm'
 import { AppDataSource } from '../../index'
 
 export async function createGift(req: Request, res: Response) {

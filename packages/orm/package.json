@@ -1,7 +1,8 @@
 {
-   "name": "orm",
+   "name": "@libregifts/orm",
+   "private": true,
    "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
+   "description": "",
    "type": "commonjs",
    "main": "src/lib.ts",
    "devDependencies": {

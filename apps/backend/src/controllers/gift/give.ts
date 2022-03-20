@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
-import { Gift, Giver } from 'orm'
-import { AppDataSource } from '../../index'
+import { Gift, Giver } from '@libregifts/orm'
+import { AppDataSource, transporter } from '../../index'
 
 export async function giveGift(req: Request, res: Response) {
 
@@ -36,4 +36,12 @@ export async function giveGift(req: Request, res: Response) {
   await AppDataSource.manager.getRepository(Gift).save(gift)
 
   res.status(200).json({ success: true })
+
+  await transporter.sendMail({
+    // "Pomozte ukrajine <vlajka ukrajiny>"
+    from: '"Pomozte ukrajině 🇺🇦" <noreply@vospel.cz>',
+    to: giver.email,
+    subject: 'Přihlášení k dodání dárku bylo úspěšné',
+    text: `Dobrý den,\n\n přihlášení k dodání dárku ${ gift.name } bylo úspěšné. Níže posíláme jeho popis.\n\n ${ gift.description }`,
+  })
 }

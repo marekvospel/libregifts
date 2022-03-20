@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { AppDataSource } from '../../index'
 import { getJson } from '../../utils/json.util'
-import { User } from 'orm'
+import { User } from '@libregifts/orm'
 import { validationResult } from 'express-validator'
 import { secret } from '../../utils/jwt.util'
 

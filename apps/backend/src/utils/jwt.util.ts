@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken'
 import { JwtPayload } from 'jsonwebtoken'
 import { Request } from 'express'
 import { AppDataSource } from '../index'
-import { User } from 'orm'
+import { User } from '@libregifts/orm'
 
 export const secret = process.env.JWT_SECRET ?? 'abc123'
 
