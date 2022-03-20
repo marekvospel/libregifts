@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 
 import GHeader from '../../components/GHeader.vue'
+import GiftDetails from '../../components/GiftDetails.vue'
 import { useStore } from '../../stores/index.store'
 
 interface Props {
@@ -25,16 +26,38 @@ onMounted(async () => {
 <template>
   <div class="gift-layout">
     <g-header />
-    <div v-if="!is404" class="exists">
-      {{ store.gifts.get(props.id)?.name }}
+    <div v-if="!is404" class="gift-details">
+      <gift-details :="store.gifts.get(props.id)" />
     </div>
-    <div v-else class="404">
-
+    <div v-else class="not-found">
+      <p>Tento dárek neexistuje. Vrátit se <router-link to="/">zpět</router-link></p>
     </div>
   </div>
 </template>
 
 
 <style scoped>
+
+.gift-details {
+  padding: 3rem;
+}
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 3rem;
+}
+
+a {
+  color: var(--accent-100);
+
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--accent-60);
+}
 
 </style>

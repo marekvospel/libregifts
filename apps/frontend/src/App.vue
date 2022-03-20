@@ -12,6 +12,8 @@
   --white: #ffffff;
   --white-97: #f7f7f7;
 
+  --primary-140: #999999;
+  --primary-120: #bfbfbf;
   --primary-100: #cccccc;
   --primary-80: #d9d9d9;
   --primary-60: #e6e6e6;
