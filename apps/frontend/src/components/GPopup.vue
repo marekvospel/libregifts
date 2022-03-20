@@ -23,7 +23,7 @@ const emit = defineEmits(['close'])
     <div class="popup">
       <h2 class="text-h2">{{ props.title }}</h2>
       <p>{{  props.description }}</p>
-      <g-button type="button" @click="emit('close')">Ok</g-button>
+      <g-button type="button" @click="emit('close')" :class="{ error: !props.ok }">Ok</g-button>
     </div>
   </div>
 </template>
@@ -62,6 +62,14 @@ const emit = defineEmits(['close'])
 
   background: #000000aa;
   backdrop-filter: blur(2px);
+}
+
+.error {
+  background: var(--red-100);
+}
+
+.error:hover {
+  background: var(--red-60);
 }
 
 </style>

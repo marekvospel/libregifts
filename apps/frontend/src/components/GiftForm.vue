@@ -53,12 +53,19 @@ async function giveGift() {
   } else {
     if (json['errors'].some((error: { msg: string }) => error.msg === 'That gift is already given!')) {
       emit('give')
-      showPopup('Chyba', 'Omlmouváme se, ale tento dárek někdo stihl zarezervovat před vámi. Zkuste jiný dárek.', false)
+      showPopup('Chyba', 'Omlmouváme se, ale k tomuto dárku se někdo stihl přihlásit před vámi. Zkuste jiný dárek.', false)
+      return
     }
+
+    error.value = 0
 
     if (json['errors'].some((error: { param: string }) => error.param === 'name')) error.value |= 1 << 0
     if (json['errors'].some((error: { param: string }) => error.param === 'email')) error.value |= 1 << 1
     if (json['errors'].some((error: { param: string }) => error.param === 'phone')) error.value |= 1 << 2
+
+    if (error.value !== 0) return
+
+    showPopup('Chyba', 'Omlmouváme se, ale při přihlašování k tomuto dárku došlo k chybě. Zkuste to znovu později.', false)
   }
 
 }

@@ -18,10 +18,10 @@ const props = withDefaults(defineProps<Props>(), {
   taken: false,
 })
 
-const taken = ref(props.taken)
+const forceTaken = ref(props.taken)
 
 function giftGiven() {
-  taken.value = true
+  forceTaken.value = true
   store.fetchGift(props.id ?? '')
 }
 
@@ -31,8 +31,8 @@ function giftGiven() {
   <div class="list-gift">
     <h3 class="text-h3">{{ props.name}}</h3>
     <p>{{ props.description }}</p>
-    <gift-form class="gift-form" :id="props.id" :taken="taken" @give="giftGiven()"/>
-    <p v-if="taken" class="text-h3 gift-form">Tento dárek je již zabraný</p>
+    <gift-form class="gift-form" :id="props.id" :taken="props.taken || forceTaken" @give="giftGiven()"/>
+    <p v-if="props.taken || forceTaken" class="text-h3 gift-form">Tento dárek je již zabraný</p>
   </div>
 </template>
 
