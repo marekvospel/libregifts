@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import GiftForm from './GiftForm.vue'
-import { reactive } from 'vue'
+import { ref } from 'vue'
+import { useStore } from '../stores/index.store'
+
+const store = useStore()
 
 interface Props {
   id?: string
@@ -15,14 +18,21 @@ const props = withDefaults(defineProps<Props>(), {
   taken: false,
 })
 
+const taken = ref(props.taken)
+
+function giftGiven() {
+  taken.value = true
+  store.fetchGift(props.id ?? '')
+}
+
 </script>
 
 <template>
   <div class="list-gift">
     <h3 class="text-h3">{{ props.name}}</h3>
     <p>{{ props.description }}</p>
-    <gift-form v-if="!props.taken" class="gift-form" :id="props.id"/>
-    <p v-else class="text-h3 gift-form">Tento dárek je již zabraný</p>
+    <gift-form class="gift-form" :id="props.id" :taken="taken" @give="giftGiven()"/>
+    <p v-if="taken" class="text-h3 gift-form">Tento dárek je již zabraný</p>
   </div>
 </template>
 

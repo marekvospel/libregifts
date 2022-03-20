@@ -5,15 +5,18 @@ import GInput from './GInput.vue'
 import GButton from './GButton.vue'
 
 import { useStore } from '../stores/index.store'
+import GPopup from './GPopup.vue'
 
 const store = useStore()
 
 interface Props {
   id?: string
+  taken?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   id: '',
+  taken: false,
 })
 
 const emit = defineEmits(['give'])
@@ -25,6 +28,13 @@ const formData = reactive({
 })
 
 const error = ref(0)
+
+const popup = reactive({
+  title: '',
+  description: '',
+  ok: true,
+  open: false,
+})
 
 async function giveGift() {
   const result = await fetch(`/api/gift/${ encodeURIComponent(props.id) }/give`, {
@@ -39,7 +49,7 @@ async function giveGift() {
 
   if (result.ok && json['success']) {
     emit('give')
-    showPopup('Úspěch', `Úspěšně jste se přihlásil k dodání Dárku <strong>${ store.gifts.get(props.id)?.name }</strong></strong>.<br>Během chvíle vám přijde potvrzovací emaiBěhem chvíle vám přijde potvrzovací email.`)
+    showPopup('Úspěch', `Úspěšně jste se přihlásil k dodání Dárku ${ store.gifts.get(props.id)?.name }.\nBěhem chvíle vám přijde potvrzovací emaiBěhem chvíle vám přijde potvrzovací email.`)
   } else {
     if (json['errors'].some((error: { msg: string }) => error.msg === 'That gift is already given!')) {
       emit('give')
@@ -54,18 +64,22 @@ async function giveGift() {
 }
 
 function showPopup(title: string, message: string, positive = true) {
-  // TODO: create popup
-  console.log(title, message, positive)
+  popup.title = title
+  popup.description = message
+  popup.ok = positive
+  popup.open = true
 }
 </script>
 
 <template>
-  <form @submit.prevent="giveGift">
+  <form v-if="!props.taken" @submit.prevent="giveGift">
     <g-input v-model:value="formData.name" placeholder="Jméno" :error="!!(error & (1 << 0))" @update:value="error -= !!(error & (1 << 0)) ? (1 << 0) : 0" />
     <g-input v-model:value="formData.email" placeholder="Email" :error="!!(error & (1 << 1))" @update:value="error -= !!(error & (1 << 1)) ? (1 << 1) : 0" />
     <g-input v-model:value="formData.phone" placeholder="Tel. číslo" :error="!!(error & (1 << 2))" @update:value="error -= !!(error & (1 << 2)) ? (1 << 2) : 0"/>
     <g-button>Darovat</g-button>
+    <g-popup v-if="popup.open" :="popup" @close="popup.open = false"/>
   </form>
+  <g-popup v-else-if="popup.open" :="popup" @close="popup.open = false"/>
 </template>
 
 <style scoped>

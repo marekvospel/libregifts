@@ -21,10 +21,10 @@ const props = withDefaults(defineProps<Props>(), {
     <h3 class="text-h3">{{ props.name}}</h3>
     <p>{{ props.description }}</p>
     <div class="gift-buttons">
-      <!-- TODO: add taken button variant -->
-      <router-link :to="`/gift/${props.id}`">
+      <router-link v-if="!props.taken" :to="`/gift/${props.id}`">
         <g-button>Darovat</g-button>
       </router-link>
+      <g-button v-else class="red-button">Zabráno</g-button>
     </div>
   </div>
 </template>
@@ -49,9 +49,17 @@ h3 {
   margin: 2rem 0 0;
 }
 
-.gift-buttons a {
+.gift-buttons a, .gift-buttons {
   display: flex;
   flex-direction: column;
+}
+
+.red-button {
+  background: var(--red-100);
+}
+
+.red-button:hover {
+  background: var(--red-60);
 }
 
 </style>

@@ -1,9 +1,17 @@
 <script setup lang="ts">
 
+interface Props {
+  type?: 'button' | 'submit'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  type: 'submit',
+})
+
 </script>
 
 <template>
-  <button>
+  <button :type="props.type">
     <slot />
   </button>
 </template>

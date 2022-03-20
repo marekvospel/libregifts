@@ -31,6 +31,12 @@ body {
   background: var(--primary-80);
 }
 
+.text-h2 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  font-family: 'Work Sans', sans-serif;
+}
+
 .text-h3 {
   font-weight: 600;
   font-size: 1.15rem;
