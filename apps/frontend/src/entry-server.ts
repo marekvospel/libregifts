@@ -1,13 +1,16 @@
 import { createApp } from './main'
 import { renderToString } from 'vue/server-renderer'
 import path, { basename } from 'path'
+import axios from 'axios'
 
-export async function render(url: any, manifest: any) {
+export async function render(url: string, manifest: any) {
   const { app, router } = createApp()
 
   // set the router to the desired URL before rendering
   await router.push(url)
   await router.isReady()
+
+  axios.defaults.baseURL = 'http://localhost:3000'
 
   /*
    * passing SSR context object which will be available via useSSRContext()

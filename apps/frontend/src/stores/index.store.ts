@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { Collection } from '@discordjs/collection'
+import axios from 'axios'
 
 export interface Giver {
   id: string,
@@ -19,11 +20,11 @@ export const useStore = defineStore('store', {
   }),
   actions: {
     async fetchGifts(page = 0): Promise<{success: boolean, lastPage?: boolean}> {
-      const result = await fetch('/api/gifts?limit=25')
+      const result = await axios.get('/api/gifts?limit=25')
 
-      if (!result.ok) return { success: false }
+      if (result.status < 200 || result.status >= 300) return { success: false }
 
-      const json = await result.json()
+      const json = result.data
 
       if (!json['success']) return { success: false }
 
@@ -38,11 +39,11 @@ export const useStore = defineStore('store', {
     },
     async fetchGift(id: string): Promise<{ success: boolean, gift?: Gift}> {
 
-      const result = await fetch(`/api/gift/${ encodeURIComponent(id) }`)
+      const result = await axios.get(`/api/gift/${ encodeURIComponent(id) }`)
 
-      if (!result.ok) return { success: false }
+      if (result.status < 200 || result.status >= 300) return { success: false }
 
-      const json = await result.json()
+      const json = await result.data
 
       if (!json['success']) return { success: false }
 

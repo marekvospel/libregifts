@@ -2,13 +2,10 @@
 import ListGift from '../components/ListGift.vue'
 import GHeader from '../components/GHeader.vue'
 import { useStore } from '../stores/index.store'
-import { onMounted } from 'vue'
 
 const store = useStore()
 
-onMounted(() => {
-  store.fetchGifts()
-})
+await store.fetchGifts()
 </script>
 
 <template>

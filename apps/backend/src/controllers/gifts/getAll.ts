@@ -12,9 +12,9 @@ export async function getGifts(req: Request, res: Response) {
   if (!errors.isEmpty())
     return res.status(400).json({ success: false, errors: errors.array() })
 
-  let limit = req.query.limit ?? 25
+  // let limit = req.query.limit ?? 25
 
-  if (limit <= 0 || limit > 50) limit = 25
+  // if (limit <= 0 || limit > 50) limit = 25
 
   const gifts = await AppDataSource.manager.getRepository(Gift).find({
     order: {
@@ -23,8 +23,10 @@ export async function getGifts(req: Request, res: Response) {
     relations: {
       giver: true,
     },
-    take: limit as number,
-    skip: (req.query.skip ?? 0) as number,
+    /*
+     * take: limit as number,
+     * skip: (req.query.skip ?? 0) as number,
+     */
   })
 
   const user = await verifyDecode(req)
