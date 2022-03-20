@@ -7,8 +7,11 @@ export class Gift {
   @PrimaryGeneratedColumn('uuid')
     id: string
 
-  @Column()
+  @Column({ length: 250 })
     name: string
+
+  @Column({ length: 100000 })
+    description: string
 
   @OneToOne(() => Giver, giver => giver.gift)
   @JoinColumn()

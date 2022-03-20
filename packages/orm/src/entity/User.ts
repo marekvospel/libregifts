@@ -6,15 +6,15 @@ export class User {
     @PrimaryGeneratedColumn('uuid')
       id: string
 
-    @Column()
+    @Column({ length: 250 })
       firstName: string
 
-    @Column()
+    @Column({ length: 250 })
       lastName: string
 
-    @Column({ unique: true })
+    @Column({ unique: true, length: 250 })
       email: string
 
-    @Column()
+    @Column({ length: 250 })
       password: string
 }

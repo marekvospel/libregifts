@@ -7,17 +7,14 @@ export class Giver {
   @PrimaryGeneratedColumn('uuid')
     id: string
 
-  @Column()
+  @Column({ length: 250 })
     name: string
 
-  @Column()
+  @Column({ length: 250 })
     email: string
 
-  @Column()
+  @Column({ length: 25 })
     phone: string
-
-  @Column()
-    address: string
 
   @OneToOne(() => Gift, gift => gift.giver)
     gift: Gift

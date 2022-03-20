@@ -33,7 +33,6 @@ export async function giveGift(req: Request, res: Response) {
   giver.name = req.body.name
   giver.email = req.body.email
   giver.phone = req.body.phone
-  giver.address = `${ req.body.street };${ req.body.city };${ req.body.zip }`
   giver.gift = gift
 
   await AppDataSource.manager.getRepository(Giver).save(giver)

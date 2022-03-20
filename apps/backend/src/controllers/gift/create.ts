@@ -18,6 +18,7 @@ export async function createGift(req: Request, res: Response) {
 
   const gift = new Gift()
   gift.name = req.body.name
+  gift.description = req.body.description
 
   await AppDataSource.manager.getRepository(Gift).save(gift)
 

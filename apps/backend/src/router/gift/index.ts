@@ -9,6 +9,7 @@ export const giftRouter = Router()
 
 giftRouter.post('/',
   body('name').isString(),
+  body('description').isString(),
   createGift)
 
 giftRouter.get('/:id',
@@ -24,7 +25,4 @@ giftRouter.post('/:id/give',
   body('name').isString(),
   body('email').isEmail(),
   body('phone').isMobilePhone('any'),
-  body('street').isString(),
-  body('city').isString(),
-  body('zip').isNumeric(),
   giveGift)
