@@ -38,3 +38,6 @@ yarn-error.log*
 !.idea/codeStyles/
 !.idea/runConfigurations/
 !.idea/strom-splnenych-prani.iml
+
+dist
+.env

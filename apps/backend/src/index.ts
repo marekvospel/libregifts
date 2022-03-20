@@ -12,11 +12,11 @@ config()
 
 export const AppDataSource = new DataSource({
   type: 'mariadb',
-  host: 'localhost',
-  port: 3306,
-  username: 'test',
-  password: 'test',
-  database: 'test',
+  host: process.env?.MYSQL_HOST ?? 'localhost',
+  port: (process.env?.MYSQL_PORT ?? 3306) as number,
+  username: process.env?.MYSQL_USER ?? 'test',
+  password: process.env?.MYSQL_PASSWORD ?? 'test',
+  database: process.env?.MYSQL_DATABASE ?? 'test',
   charset: 'utf8mb4_unicode_ci',
   synchronize: false,
   logging: false,

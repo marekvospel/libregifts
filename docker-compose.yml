@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  frontend:
+    env_file:
+      - .env
+    build: apps/frontend
+    ports:
+      - '127.0.0.1:49161:3000'
+    environment:
+      BASE_URL: 'http://backend:3000/'
+    networks:
+      - libregifts
+  backend:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    ports:
+      - '127.0.0.1:49162:3001'
+    environment:
+      MYSQL_HOST: "mariadb"
+      MYSQL_PORT: "3306"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      SMTP_HOST: "${SMTP_HOST}"
+      SMTP_PORT: "${SMTP_PORT}"
+      SMTP_SECURE: "${SMTP_SECURE}"
+      SMTP_USERNAME: "${SMTP_USERNAME}"
+      SMTP_PASSWORD: "${SMTP_PASSWORD}"
+    depends_on:
+      - mariadb
+    networks:
+      - libregifts
+  mariadb:
+    env_file:
+      - .env
+    image: "mariadb:10.1.16"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+    networks:
+      - libregifts
+
+networks:
+  libregifts:
+    driver: bridge
