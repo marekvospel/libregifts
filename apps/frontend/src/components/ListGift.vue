@@ -2,13 +2,14 @@
 import GButton from './GButton.vue'
 
 interface Props {
-  title?: string,
+  id?: string
+  name?: string,
   description?: string,
   taken?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: 'Lorem ipsum dolor sit amet.',
+  name: 'Lorem ipsum dolor sit amet.',
   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda consectetur debitis dolorem ducimus expedita facilis id itaque modi molestias nemo non nulla odio odit officia perspiciatis quas quasi, repellat sapiente tempore tenetur vero voluptates voluptatibus. Dolorem earum maiores voluptatum?',
   taken: false,
 })
@@ -17,10 +18,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
   <div class="list-gift">
-    <h3 class="text-h3">{{ props.title}}</h3>
+    <h3 class="text-h3">{{ props.name}}</h3>
     <p>{{ props.description }}</p>
     <div class="gift-buttons">
-      <g-button>Darovat</g-button>
+      <!-- TODO: add taken button variant -->
+      <router-link :to="`/gift/${props.id}`">
+        <g-button>Darovat</g-button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -42,10 +46,12 @@ h3 {
 }
 
 .gift-buttons {
+  margin: 2rem 0 0;
+}
+
+.gift-buttons a {
   display: flex;
   flex-direction: column;
-
-  margin: 2rem 0 0;
 }
 
 </style>

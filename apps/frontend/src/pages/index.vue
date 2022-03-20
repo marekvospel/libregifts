@@ -15,7 +15,7 @@ onMounted(() => {
   <div class="home-layout">
     <g-header />
     <div class="gifts">
-      <list-gift v-for="gift in store.gifts.values()" :key="gift.id" :title="gift.name" :taken="gift.taken"/>
+      <list-gift v-for="gift in store.gifts.values()" :key="gift.id" v-bind="gift" />
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 1.5rem;
 
-  padding: 1.5rem;
+  padding: 3rem;
 }
 
 </style>
