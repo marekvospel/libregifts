@@ -10,7 +10,7 @@ export class Gift {
   @Column({ length: 250 })
     name: string
 
-  @Column({ length: 100000 })
+  @Column()
     description: string
 
   @OneToOne(() => Giver, giver => giver.gift)

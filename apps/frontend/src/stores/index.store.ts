@@ -20,7 +20,7 @@ export const useStore = defineStore('store', {
   }),
   actions: {
     async fetchGifts(page = 0): Promise<{success: boolean, lastPage?: boolean}> {
-      const result = await axios.get('/api/gifts?limit=25')
+      const result = await axios.get('/gifts?limit=25')
 
       if (result.status < 200 || result.status >= 300) return { success: false }
 
@@ -39,7 +39,7 @@ export const useStore = defineStore('store', {
     },
     async fetchGift(id: string): Promise<{ success: boolean, gift?: Gift}> {
 
-      const result = await axios.get(`/api/gift/${ encodeURIComponent(id) }`)
+      const result = await axios.get(`/gift/${ encodeURIComponent(id) }`)
 
       if (result.status < 200 || result.status >= 300) return { success: false }
 

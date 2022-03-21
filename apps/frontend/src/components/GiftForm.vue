@@ -6,6 +6,7 @@ import GButton from './GButton.vue'
 
 import { useStore } from '../stores/index.store'
 import GPopup from './GPopup.vue'
+import axios from 'axios'
 
 const store = useStore()
 
@@ -37,17 +38,16 @@ const popup = reactive({
 })
 
 async function giveGift() {
-  const result = await fetch(`/api/gift/${ encodeURIComponent(props.id) }/give`, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
-  })
+  const result = await axios.post(`/gift/${ encodeURIComponent(props.id) }/give`, JSON.stringify(formData),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
-  const json = await result.json()
+  const json = result.data
 
-  if (result.ok && json['success']) {
+  if (result.status >= 200 && result.status < 300 && json['success']) {
     emit('give')
     showPopup('Úspěch', `Úspěšně jste se přihlásil k dodání Dárku ${ store.gifts.get(props.id)?.name }.\nBěhem chvíle vám přijde potvrzovací emaiBěhem chvíle vám přijde potvrzovací email.`)
   } else {

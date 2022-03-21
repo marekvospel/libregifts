@@ -10,7 +10,7 @@ export async function render(url: string, manifest: any) {
   await router.push(url)
   await router.isReady()
 
-  axios.defaults.baseURL = process.env.BASE_URL ?? 'http://localhost:3000'
+  axios.defaults.baseURL = process.env.BASE_URL ?? 'http://localhost:3001/api'
 
   /*
    * passing SSR context object which will be available via useSSRContext()
