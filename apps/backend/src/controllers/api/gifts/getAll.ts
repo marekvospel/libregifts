@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import { AppDataSource } from '../../index'
+import { AppDataSource } from '../../../index'
 import { Gift } from '@libregifts/orm'
-import { getJson } from '../../utils/json.util'
-import { verifyDecode } from '../../utils/jwt.util'
+import { getJson } from '../../../utils/json.util'
+import { verifyDecode } from '../../../utils/jwt.util'
 import { validationResult } from 'express-validator'
 
 export async function getGifts(req: Request, res: Response) {

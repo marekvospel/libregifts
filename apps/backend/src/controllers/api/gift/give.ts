@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import { Gift, Giver } from '@libregifts/orm'
-import { AppDataSource, transporter } from '../../index'
+import { AppDataSource, transporter } from '../../../index'
 
 export async function giveGift(req: Request, res: Response) {
 

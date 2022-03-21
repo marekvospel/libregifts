@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { postSignIn } from '../../controllers/sign/in'
+import { postSignIn } from '../../../controllers/api/sign/in'
 import { body } from 'express-validator'
 
 export const signRouter = Router()

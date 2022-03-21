@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import { body, param } from 'express-validator'
-import { createGift } from '../../controllers/gift/create'
-import { getGift } from '../../controllers/gift/get'
-import { deleteGift } from '../../controllers/gift/delete'
-import { giveGift } from '../../controllers/gift/give'
+import { createGift } from '../../../controllers/api/gift/create'
+import { getGift } from '../../../controllers/api/gift/get'
+import { deleteGift } from '../../../controllers/api/gift/delete'
+import { giveGift } from '../../../controllers/api/gift/give'
 
 export const giftRouter = Router()
 

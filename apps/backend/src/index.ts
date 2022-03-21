@@ -4,10 +4,9 @@ import Express, { json } from 'express'
 import { createTransport } from 'nodemailer'
 import { config } from 'dotenv'
 
-import { entities } from '@libregifts/orm'
+import { entities, User } from '@libregifts/orm'
 
 import { router } from './router'
-import { User } from '@libregifts/orm/dist/lib'
 import { hash } from 'bcrypt'
 
 config()
@@ -20,7 +19,7 @@ export const AppDataSource = new DataSource({
   password: process.env?.MYSQL_PASSWORD ?? 'test',
   database: process.env?.MYSQL_DATABASE ?? 'test',
   charset: 'utf8mb4_unicode_ci',
-  synchronize: false,
+  synchronize: true,
   logging: false,
   entities: entities,
   migrations: [],
@@ -52,15 +51,13 @@ AppDataSource.initialize().then(async () => {
 
     }
 
-
-
   }
 
   const app = Express()
 
   app.use(json())
 
-  app.use('/api', router)
+  app.use('/', router)
 
   app.listen(3001)
   console.log('Listening on http://localhost:3001/api')

@@ -1,16 +1,6 @@
 version: '3'
 
 services:
-  frontend:
-    env_file:
-      - .env
-    build: apps/frontend
-    ports:
-      - '127.0.0.1:49161:3000'
-    environment:
-      BASE_URL: 'http://backend:3000/'
-    networks:
-      - libregifts
   backend:
     env_file:
       - .env
@@ -18,7 +8,7 @@ services:
       context: .
       dockerfile: apps/backend/Dockerfile
     ports:
-      - '127.0.0.1:49162:3001'
+      - '127.0.0.1:49161:3001'
     environment:
       MYSQL_HOST: "mariadb"
       MYSQL_PORT: "3306"
@@ -34,8 +24,10 @@ services:
       LIBREGIFTS_NAME: "${LIBREGIFTS_NAME}"
       LIBREGIFTS_SURNAME: "${LIBREGIFTS_SURNAME}"
       LIBREGIFTS_PASSWORD: "${LIBREGIFTS_PASSWORD}"
+      BASE_URL: 'http://localhost:3001/api'
     depends_on:
       - mariadb
+    restart: unless-stopped
     deploy:
       restart_policy:
         condition: on-failure

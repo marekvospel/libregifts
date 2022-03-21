@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { verifyDecode } from '../../utils/jwt.util'
-import { AppDataSource } from '../../index'
+import { verifyDecode } from '../../../utils/jwt.util'
+import { AppDataSource } from '../../../index'
 import { Gift, Giver } from '@libregifts/orm'
 import { validationResult } from 'express-validator'
 

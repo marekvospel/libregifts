@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import { AppDataSource } from '../../index'
-import { getJson } from '../../utils/json.util'
+import { AppDataSource } from '../../../index'
+import { getJson } from '../../../utils/json.util'
 import { User } from '@libregifts/orm'
 import { validationResult } from 'express-validator'
-import { secret } from '../../utils/jwt.util'
+import { secret } from '../../../utils/jwt.util'
 
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
