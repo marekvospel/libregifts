@@ -30,8 +30,18 @@ services:
       SMTP_SECURE: "${SMTP_SECURE}"
       SMTP_USERNAME: "${SMTP_USERNAME}"
       SMTP_PASSWORD: "${SMTP_PASSWORD}"
+      LIBREGIFTS_EMAIL: "${LIBREGIFTS_EMAIL}"
+      LIBREGIFTS_NAME: "${LIBREGIFTS_NAME}"
+      LIBREGIFTS_SURNAME: "${LIBREGIFTS_SURNAME}"
+      LIBREGIFTS_PASSWORD: "${LIBREGIFTS_PASSWORD}"
     depends_on:
       - mariadb
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
     networks:
       - libregifts
   mariadb:
