@@ -24,6 +24,7 @@ services:
       LIBREGIFTS_NAME: "${LIBREGIFTS_NAME}"
       LIBREGIFTS_SURNAME: "${LIBREGIFTS_SURNAME}"
       LIBREGIFTS_PASSWORD: "${LIBREGIFTS_PASSWORD}"
+      JWT_SECRET: "${JWT_SECRET}"
       START_DELAY: "5"
       BASE_URL: 'http://localhost:3001/api'
     depends_on:
