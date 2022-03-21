@@ -37,7 +37,7 @@ yarn-error.log*
 !.idea/jsLinters/
 !.idea/codeStyles/
 !.idea/runConfigurations/
-!.idea/strom-splnenych-prani.iml
+!.idea/*.iml
 
 dist
 .env
