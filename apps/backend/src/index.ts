@@ -8,6 +8,7 @@ import { entities, User } from '@libregifts/orm'
 
 import { router } from './router'
 import { hash } from 'bcrypt'
+import compression from 'compression'
 
 config()
 
@@ -36,30 +37,36 @@ export const transporter = createTransport({
   },
 })
 
-AppDataSource.initialize().then(async () => {
+async function start() {
 
-  if (process.env?.LIBREGIFTS_EMAIL) {
-    const [, users] = await AppDataSource.manager.getRepository(User).findAndCount()
-    if (users < 1) {
-      const user = new User()
-      user.email = process.env?.LIBREGIFTS_EMAIL
-      user.firstName = process.env?.LIBREGIFTS_NAME
-      user.lastName = process.env?.LIBREGIFTS_SURNAME
+  AppDataSource.initialize().then(async () => {
 
-      user.password = await hash(process.env?.LIBREGIFTS_PASSWORD, 10)
-      await AppDataSource.manager.getRepository(User).save(user)
+    if (process.env?.LIBREGIFTS_EMAIL) {
+      const [, users] = await AppDataSource.manager.getRepository(User).findAndCount()
+      if (users < 1) {
+        const user = new User()
+        user.email = process.env?.LIBREGIFTS_EMAIL
+        user.firstName = process.env?.LIBREGIFTS_NAME
+        user.lastName = process.env?.LIBREGIFTS_SURNAME
+
+        user.password = await hash(process.env?.LIBREGIFTS_PASSWORD, 10)
+        await AppDataSource.manager.getRepository(User).save(user)
+
+      }
 
     }
 
-  }
+    const app = Express()
 
-  const app = Express()
+    app.use(json())
 
-  app.use(json())
+    app.use('/', router)
+    app.use(compression())
 
-  app.use('/', router)
+    app.listen(3001)
+    console.log('Listening on http://localhost:3001/api')
 
-  app.listen(3001)
-  console.log('Listening on http://localhost:3001/api')
+  }).catch((err) => console.error(err))
+}
 
-}).catch((err) => console.error(err))
+setTimeout(start, (process.env.START_DELAY ?? 0) as number * 1000)
