@@ -10,6 +10,7 @@ export interface Giver {
 export interface Gift {
   id: string
   name: string
+  description: string
   taken: boolean
   giver?: Giver | null
 }
@@ -19,6 +20,15 @@ export const useStore = defineStore('store', {
     gifts: new Collection<string, Gift>(),
   }),
   actions: {
+    test() {
+      this.gifts.set('test', {
+        id: 'test',
+        name: 'test',
+        description: '',
+        taken: false,
+        giver: null,
+      })
+    },
     async fetchGifts(page = 0): Promise<{success: boolean, lastPage?: boolean}> {
       const result = await axios.get('/gifts?limit=25')
 

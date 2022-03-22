@@ -17,11 +17,12 @@ export async function frontend(req: Request, res: Response, next: NextFunction) 
     const template = indexProd
     const render = require('../../../frontend/dist/server/entry-server.js').render
 
-    const [appHtml, preloadLinks] = await render(url, manifest)
+    const [appHtml, preloadLinks, initialState] = await render(url, manifest)
 
     const html = template
       .replace('<!--preload-links-->', preloadLinks)
       .replace('<!--app-html-->', appHtml)
+      .replace('<!--initial-state-->', initialState)
 
     res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
   } catch (e) {

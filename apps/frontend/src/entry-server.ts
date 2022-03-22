@@ -2,6 +2,8 @@ import { createApp } from './main'
 import { renderToString } from 'vue/server-renderer'
 import path, { basename } from 'path'
 import axios from 'axios'
+import { App } from 'vue'
+import devalue from '@nuxt/devalue'
 
 export async function render(url: string, manifest: any) {
   const { app, router } = createApp()
@@ -27,7 +29,22 @@ export async function render(url: string, manifest: any) {
    * request.
    */
   const preloadLinks = renderPreloadLinks((ctx as any).modules, manifest)
-  return [html, preloadLinks]
+
+  const initialState = getInitialStateScript(app)
+  return [html, preloadLinks, initialState]
+}
+
+function getInitialStateScript(app: App) {
+  return `<script>window.__INITIAL_STATE__=${ devalue(getInitialState(app)) }</script>`
+}
+
+function getInitialState(app: App): any {
+  const initialState = {} as any
+
+  const pinia = app.config.globalProperties.$pinia
+  initialState.pinia = pinia.state.value
+
+  return initialState
 }
 
 function renderPreloadLinks(modules: any, manifest: any) {
