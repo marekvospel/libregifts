@@ -47,7 +47,7 @@ async function giveGift() {
       })
 
     emit('give')
-    showPopup('Úspěch', `Úspěšně jste se přihlásil k dodání Dárku ${ store.gifts.get(props.id)?.name }.\nBěhem chvíle vám přijde potvrzovací emaiBěhem chvíle vám přijde potvrzovací email.`)
+    showPopup('Úspěch', `Úspěšně jste se přihlásil k dodání Dárku ${ store.gifts.get(props.id)?.name }.\n\nBěhem chvíle vám přijde potvrzovací email.`)
   } catch (err) {
 
     const json = (err as any)?.response?.data ?? {}

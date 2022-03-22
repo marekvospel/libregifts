@@ -8,7 +8,7 @@ export const AppDataSource = new DataSource({
   username: 'test',
   password: 'test',
   database: 'test',
-  charset: 'utf8mb4_unicode_ci',
+  charset: 'utf8_czech_ci',
   synchronize: true,
   logging: false,
   entities: ['src/entity/**/*.ts'],

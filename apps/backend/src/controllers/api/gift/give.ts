@@ -39,7 +39,7 @@ export async function giveGift(req: Request, res: Response) {
 
   await transporter.sendMail({
     // "Pomozte ukrajine <vlajka ukrajiny>"
-    from: '"Pomozte ukrajině 🇺🇦" <noreply@vospel.cz>',
+    from: '"Pomozte Ukrajině 🇺🇦" <noreply@vospel.cz>',
     to: giver.email,
     subject: 'Přihlášení k dodání dárku bylo úspěšné',
     text: `Dobrý den,\n\n přihlášení k dodání dárku ${ gift.name } bylo úspěšné. Níže posíláme jeho popis.\n\n ${ gift.description }`,

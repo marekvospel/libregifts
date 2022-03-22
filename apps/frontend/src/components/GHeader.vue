@@ -5,7 +5,7 @@
 <template>
   <header>
     <router-link to="/">
-      <h3 class="text-h3">Pomozte ukrajině</h3>
+      <h3 class="text-h3">Pomozte Ukrajině</h3>
     </router-link>
   </header>
 </template>
