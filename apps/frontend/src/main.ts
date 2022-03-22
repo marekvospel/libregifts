@@ -11,9 +11,9 @@ import { createPinia } from 'pinia'
  */
 export function createApp() {
   const app = createSSRApp(App)
-  const router = createRouter()
   const pinia = createPinia()
+  const router = createRouter(pinia)
   app.use(router)
   app.use(pinia)
-  return { app, router }
+  return { app, router, pinia }
 }

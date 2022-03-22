@@ -2,10 +2,13 @@
 import ListGift from '../components/ListGift.vue'
 import GHeader from '../components/GHeader.vue'
 import { useStore } from '../stores/index.store'
+import { onMounted } from 'vue'
 
 const store = useStore()
 
-if (import.meta.env.SSR) await store.fetchGifts()
+onMounted(async () => {
+  await store.fetchGifts()
+})
 
 </script>
 

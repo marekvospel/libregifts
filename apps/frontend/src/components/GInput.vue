@@ -6,12 +6,14 @@ interface Props {
   placeholder?: string
   value?: string
   error?: boolean
+  type?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: 'Email',
+  type: 'text',
   value: '',
-  error: true,
+  error: false,
 })
 
 const emit = defineEmits(['update:value'])
@@ -24,7 +26,7 @@ const value = computed({
 </script>
 
 <template>
-  <input type="text" v-model="value" :placeholder="props.placeholder" :class="{ error: props.error }">
+  <input :type="props.type" v-model="value" :placeholder="props.placeholder" :class="{ error: props.error }">
 </template>
 
 <style scoped>

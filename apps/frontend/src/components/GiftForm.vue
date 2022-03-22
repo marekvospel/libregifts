@@ -38,20 +38,21 @@ const popup = reactive({
 })
 
 async function giveGift() {
-  const result = await axios.post(`/gift/${ encodeURIComponent(props.id) }/give`, JSON.stringify(formData),
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+  try {
+    await axios.post(`/gift/${ encodeURIComponent(props.id) }/give`, JSON.stringify(formData),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
-  const json = result.data
-
-  if (result.status >= 200 && result.status < 300 && json['success']) {
     emit('give')
     showPopup('Úspěch', `Úspěšně jste se přihlásil k dodání Dárku ${ store.gifts.get(props.id)?.name }.\nBěhem chvíle vám přijde potvrzovací emaiBěhem chvíle vám přijde potvrzovací email.`)
-  } else {
-    if (json['errors'].some((error: { msg: string }) => error.msg === 'That gift is already given!')) {
+  } catch (err) {
+
+    const json = (err as any)?.response?.data ?? {}
+
+    if (json['errors']?.some((error: { msg: string }) => error.msg === 'That gift is already given!')) {
       emit('give')
       showPopup('Chyba', 'Omlmouváme se, ale k tomuto dárku se někdo stihl přihlásit před vámi. Zkuste jiný dárek.', false)
       return
@@ -59,9 +60,9 @@ async function giveGift() {
 
     error.value = 0
 
-    if (json['errors'].some((error: { param: string }) => error.param === 'name')) error.value |= 1 << 0
-    if (json['errors'].some((error: { param: string }) => error.param === 'email')) error.value |= 1 << 1
-    if (json['errors'].some((error: { param: string }) => error.param === 'phone')) error.value |= 1 << 2
+    if (json['errors']?.some((error: { param: string }) => error.param === 'name')) error.value |= 1 << 0
+    if (json['errors']?.some((error: { param: string }) => error.param === 'email')) error.value |= 1 << 1
+    if (json['errors']?.some((error: { param: string }) => error.param === 'phone')) error.value |= 1 << 2
 
     if (error.value !== 0) return
 
