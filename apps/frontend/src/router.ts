@@ -8,7 +8,7 @@ import { useStore } from './stores/index.store'
 import { Pinia } from 'pinia'
 
 export function createRouter(pinia: Pinia) {
-  const store = useStore(pinia)
+  // const store = useStore(pinia)
 
   const router = _createRouter({
     /*
@@ -20,8 +20,10 @@ export function createRouter(pinia: Pinia) {
   })
 
   router.beforeEach((to, from, next) => {
-    if (!import.meta.env.SSR && to.meta.auth && !store.token)
-      next('/admin/sign/in')
+    /*
+     * if (!import.meta.env.SSR && to.meta.auth && !store.token)
+     * next('/admin/sign/in')
+     */
 
 
     next()

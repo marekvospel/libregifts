@@ -20,7 +20,7 @@ export const AppDataSource = new DataSource({
   password: process.env?.MYSQL_PASSWORD ?? 'test',
   database: process.env?.MYSQL_DATABASE ?? 'test',
   charset: 'utf8mb4_unicode_ci',
-  synchronize: true,
+  synchronize: false,
   logging: false,
   entities: entities,
   migrations: [],

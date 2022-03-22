@@ -8,10 +8,12 @@ const props = withDefaults(defineProps<Props>(), {
   type: 'submit',
 })
 
+const emit = defineEmits(['click'])
+
 </script>
 
 <template>
-  <button :type="props.type">
+  <button :type="props.type" @click="emit('click')">
     <slot />
   </button>
 </template>

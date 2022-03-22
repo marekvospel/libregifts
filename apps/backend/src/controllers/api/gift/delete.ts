@@ -27,8 +27,8 @@ export async function deleteGift(req: Request, res: Response) {
     return res.status(404).json({ success: false, errors: [{ msg: 'There is no gift with that id!' }] })
 
   const giver = gift.giver
-  await AppDataSource.manager.getRepository(Gift).delete(gift)
-  await AppDataSource.manager.getRepository(Giver).delete(giver)
+  await AppDataSource.manager.getRepository(Gift).delete(gift.id)
+  if (giver) await AppDataSource.manager.getRepository(Giver).delete(giver.id)
 
   res.status(200).json({ success: true })
 

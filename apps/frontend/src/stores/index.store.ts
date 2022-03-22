@@ -23,7 +23,11 @@ export const useStore = defineStore('store', {
   actions: {
     async fetchGifts(page = 0): Promise<{success: boolean, lastPage?: boolean}> {
       try {
-        const result = await axios.get('/gifts?limit=25')
+        const result = await axios.get('/gifts?limit=25', {
+          headers: {
+            'Authorization': this.token,
+          },
+        })
 
         const json = result.data
 
@@ -43,7 +47,11 @@ export const useStore = defineStore('store', {
     },
     async fetchGift(id: string): Promise<{ success: boolean, gift?: Gift}> {
       try {
-        const result = await axios.get(`/gift/${ encodeURIComponent(id) }`)
+        const result = await axios.get(`/gift/${ encodeURIComponent(id) }`, {
+          headers: {
+            'Authorization': this.token,
+          },
+        })
 
         const json = await result.data
 
@@ -56,6 +64,10 @@ export const useStore = defineStore('store', {
       } catch {
         return { success: false }
       }
+    },
+    removeGift(id: string | undefined) {
+      if (!id) return
+      this.gifts.delete(id)
     },
     setToken(token: string) {
       this.token = token
