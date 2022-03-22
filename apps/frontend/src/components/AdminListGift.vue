@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStore } from '../stores/index.store'
+import { Giver, useStore } from '../stores/index.store'
 
 import GButton from './GButton.vue'
 import axios from 'axios'
@@ -10,7 +10,8 @@ interface Props {
   id?: string
   name?: string,
   description?: string,
-  taken?: boolean
+  taken?: boolean,
+  giver?: Giver,
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -39,6 +40,11 @@ async function deleteGift() {
   <div class="list-gift">
     <h3 class="text-h3">{{ props.name}}</h3>
     <p>{{ props.description }}</p>
+    <div v-if="props.giver">
+      <p>{{ props.giver.name }}</p>
+      <p>{{ props.giver.email }}</p>
+      <p>{{ props.giver.phone }}</p>
+    </div>
     <div class="gift-buttons">
       <g-button @click="deleteGift" class="red-button">Smazat</g-button>
     </div>

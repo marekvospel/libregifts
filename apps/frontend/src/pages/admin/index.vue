@@ -23,6 +23,9 @@ onMounted(async () => {
   <div class="home-layout">
     <g-header />
     <div class="gifts">
+      <router-link to="/admin/add" class="add-button">
+        <p>Přidat</p>
+      </router-link>
       <admin-list-gift v-for="gift in store.gifts.values()" :key="gift.id" :="gift" />
     </div>
   </div>
@@ -37,6 +40,10 @@ onMounted(async () => {
   gap: 1.5rem;
 
   padding: 3rem;
+}
+
+.add-button {
+  text-align: center;
 }
 
 </style>
