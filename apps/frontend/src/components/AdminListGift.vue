@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 async function deleteGift() {
   try {
-    const result = await axios.delete(`/gift/${ encodeURIComponent(props.id ?? '') }`, {
+    const result = await axios.delete(`/api/gift/${ encodeURIComponent(props.id ?? '') }`, {
       headers: {
         'Authorization': store.token,
       },

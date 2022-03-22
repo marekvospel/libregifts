@@ -39,7 +39,7 @@ const popup = reactive({
 
 async function giveGift() {
   try {
-    await axios.post(`/gift/${ encodeURIComponent(props.id) }/give`, JSON.stringify(formData),
+    await axios.post(`/api/gift/${ encodeURIComponent(props.id) }/give`, JSON.stringify(formData),
       {
         headers: {
           'Content-Type': 'application/json',

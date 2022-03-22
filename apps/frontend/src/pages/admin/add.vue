@@ -21,7 +21,7 @@ const error = ref(0)
 
 async function signIn() {
   try {
-    const result = await axios.post('/gift', JSON.stringify({
+    const result = await axios.post('/api/gift', JSON.stringify({
       name: formData.name,
       description: formData.description,
     }), {

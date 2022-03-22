@@ -16,14 +16,17 @@ export interface Gift {
 }
 
 export const useStore = defineStore('store', {
-  state: () => ({
-    token: '',
-    gifts: new Collection<string, Gift>(),
-  }),
+  state: () => {
+
+    return {
+      token: localStorage.getItem('token') ?? '',
+      gifts: new Collection<string, Gift>(),
+    }
+  },
   actions: {
     async fetchGifts(page = 0): Promise<{success: boolean, lastPage?: boolean}> {
       try {
-        const result = await axios.get('/gifts?limit=25', {
+        const result = await axios.get('/api/gifts?limit=25', {
           headers: {
             'Authorization': this.token,
           },
@@ -47,7 +50,7 @@ export const useStore = defineStore('store', {
     },
     async fetchGift(id: string): Promise<{ success: boolean, gift?: Gift}> {
       try {
-        const result = await axios.get(`/gift/${ encodeURIComponent(id) }`, {
+        const result = await axios.get(`/api/gift/${ encodeURIComponent(id) }`, {
           headers: {
             'Authorization': this.token,
           },
