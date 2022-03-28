@@ -9,18 +9,14 @@ export async function getGift(req: Request, res: Response) {
 
   const errors = await validationResult(req)
 
-  if (!errors.isEmpty())
-    return res.status(400).json({ success: false, errors: errors.array() })
+  if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() })
 
   const gift = await AppDataSource.manager.getRepository(Gift).findOne({
     where: { id: req.params.id },
-    relations: {
-      giver: true,
-    },
+    relations: { giver: true },
   })
 
-  if (!gift)
-    return res.status(404).json({ success: false, errors: [{ msg: 'There is no gift with that id!' }] })
+  if (!gift) return res.status(404).json({ success: false, errors: [{ msg: 'There is no gift with that id!' }] })
 
   const giftJson = getJson(gift)
   const user = verifyDecode(req)

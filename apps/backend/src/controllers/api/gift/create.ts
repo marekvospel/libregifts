@@ -8,13 +8,11 @@ export async function createGift(req: Request, res: Response) {
 
   const errors = validationResult(req)
 
-  if (!errors.isEmpty())
-    return res.status(400).json({ success: false, errors: errors.array() })
+  if (!errors.isEmpty()) return res.status(400).json({ success: false, errors: errors.array() })
 
   const user = await verifyDecode(req)
 
-  if (!user)
-    return res.status(401).json({ success: false, errors: [{ msg: 'Unauthorized!' }] })
+  if (!user) return res.status(401).json({ success: false, errors: [{ msg: 'Unauthorized!' }] })
 
   const gift = new Gift()
   gift.name = req.body.name

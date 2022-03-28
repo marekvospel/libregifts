@@ -8,4 +8,5 @@ giftsRouter.get(
   '/',
   query('limit').isNumeric().optional(),
   query('skip').isNumeric().optional(),
-  getGifts)
+  getGifts
+)
