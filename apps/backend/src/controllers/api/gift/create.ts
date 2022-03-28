@@ -4,7 +4,7 @@ import { verifyDecode } from '../../../utils/jwt.util'
 import { Gift } from '@libregifts/orm'
 import { AppDataSource } from '../../../index'
 
-export async function createGift(req: Request, res: Response) {
+export async function createGift(req: Request, res: Response): Promise<any> {
 
   const errors = validationResult(req)
 

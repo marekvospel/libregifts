@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const AppDataSource = new DataSource({
   type: 'mariadb',
   host: 'localhost',

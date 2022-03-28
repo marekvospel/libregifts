@@ -4,9 +4,7 @@ import { query } from 'express-validator'
 
 export const giftsRouter = Router()
 
-giftsRouter.get(
-  '/',
+giftsRouter.get('/',
   query('limit').isNumeric().optional(),
   query('skip').isNumeric().optional(),
-  getGifts
-)
+  getGifts)

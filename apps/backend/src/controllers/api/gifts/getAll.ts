@@ -5,7 +5,7 @@ import { getJson } from '../../../utils/json.util'
 import { verifyDecode } from '../../../utils/jwt.util'
 import { validationResult } from 'express-validator'
 
-export async function getGifts(req: Request, res: Response) {
+export async function getGifts(req: Request, res: Response): Promise<any> {
 
   const errors = validationResult(req)
 

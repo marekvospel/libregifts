@@ -2,7 +2,7 @@ import { Router, static as serveStatic } from 'express'
 import { apiRouter } from './api'
 import path from 'path'
 
-const resolve = (p) => path.resolve(__dirname, p)
+const resolve = (p): string => path.resolve(__dirname, p)
 
 export const router = Router()
 

@@ -4,7 +4,7 @@ import { AppDataSource } from '../../../index'
 import { Gift, Giver } from '@libregifts/orm'
 import { validationResult } from 'express-validator'
 
-export async function deleteGift(req: Request, res: Response) {
+export async function deleteGift(req: Request, res: Response): Promise<any> {
 
   const errors = validationResult(req)
 

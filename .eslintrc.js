@@ -1,12 +1,8 @@
 
 module.exports = {
   root: true,
-  env: {
-    node: true,
-  },
+  env: { node: true },
   extends: [
-    'eslint-config-vospel/base',
+    'eslint-config-vospel/typescript',
   ],
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
 }

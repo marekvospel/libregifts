@@ -5,7 +5,7 @@ import { Gift } from '@libregifts/orm'
 import { getJson } from '../../../utils/json.util'
 import { verifyDecode } from '../../../utils/jwt.util'
 
-export async function getGift(req: Request, res: Response) {
+export async function getGift(req: Request, res: Response): Promise<any> {
 
   const errors = await validationResult(req)
 

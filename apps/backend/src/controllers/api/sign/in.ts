@@ -8,7 +8,7 @@ import { secret } from '../../../utils/jwt.util'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 
-export async function postSignIn(req: Request, res: Response) {
+export async function postSignIn(req: Request, res: Response): Promise<any> {
 
   const errors = validationResult(req)
 

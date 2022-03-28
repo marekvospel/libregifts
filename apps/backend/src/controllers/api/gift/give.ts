@@ -3,7 +3,7 @@ import { validationResult } from 'express-validator'
 import { Gift, Giver } from '@libregifts/orm'
 import { AppDataSource, transporter } from '../../../index'
 
-export async function giveGift(req: Request, res: Response) {
+export async function giveGift(req: Request, res: Response): Promise<any> {
 
   const errors = validationResult(req)
 

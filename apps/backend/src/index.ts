@@ -12,6 +12,7 @@ import compression from 'compression'
 
 config()
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const AppDataSource = new DataSource({
   type: 'mariadb',
   host: process.env?.MYSQL_HOST ?? 'localhost',
@@ -37,7 +38,7 @@ export const transporter = createTransport({
   },
 })
 
-async function start() {
+async function start(): Promise<void> {
 
   AppDataSource.initialize().then(async () => {
 
