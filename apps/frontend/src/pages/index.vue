@@ -9,20 +9,18 @@ const store = useStore()
 onMounted(async () => {
   await store.fetchGifts()
 })
-
 </script>
 
 <template>
   <div class="home-layout">
-    <g-header />
+    <GHeader />
     <div class="gifts">
-      <list-gift v-for="gift in store.gifts.values()" :key="gift.id" :="gift" />
+      <ListGift v-for="gift in store.gifts.values()" :key="gift.id" :="gift" />
     </div>
   </div>
 </template>
 
 <style scoped>
-
 .gifts {
   display: flex;
   flex-direction: column;
@@ -30,5 +28,4 @@ onMounted(async () => {
 
   padding: 3rem;
 }
-
 </style>

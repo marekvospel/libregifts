@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "FORCE_COLOR=1 vite dev --host",
     "build": "FORCE_COLOR=1 vite build",
-    "preview": "FORCE_COLOR=1 NODE_ENV=production node server"
+    "preview": "FORCE_COLOR=1 NODE_ENV=production node server",
+    "lint": "FORCE_COLOR=1 eslint --fix src --ext .vue"
   },
   "dependencies": {
     "@discordjs/collection": "^0.5.0",

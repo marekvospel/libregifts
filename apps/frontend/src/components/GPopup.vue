@@ -2,9 +2,9 @@
 import GButton from './GButton.vue'
 
 interface Props {
-  title?: string
-  description?: string
-  ok?: boolean
+  title?: string;
+  description?: string;
+  ok?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -14,7 +14,6 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits(['close'])
-
 </script>
 
 <template>
@@ -23,13 +22,12 @@ const emit = defineEmits(['close'])
     <div class="popup">
       <h2 class="text-h2">{{ props.title }}</h2>
       <p>{{  props.description }}</p>
-      <g-button type="button" @click="emit('close')" :class="{ error: !props.ok }">Ok</g-button>
+      <GButton type="button" @click="emit('close')" :class="{ error: !props.ok }">Ok</GButton>
     </div>
   </div>
 </template>
 
 <style scoped>
-
 .popup {
   position: fixed;
   left: 50%;
@@ -71,5 +69,4 @@ const emit = defineEmits(['close'])
 .error:hover {
   background: var(--red-60);
 }
-
 </style>

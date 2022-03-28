@@ -1,15 +1,11 @@
 <script setup lang="ts">
-
 interface Props {
-  type?: 'button' | 'submit'
+  type?: 'button' | 'submit';
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  type: 'submit',
-})
+const props = withDefaults(defineProps<Props>(), { type: 'submit' })
 
 const emit = defineEmits(['click'])
-
 </script>
 
 <template>
@@ -19,7 +15,6 @@ const emit = defineEmits(['click'])
 </template>
 
 <style scoped>
-
 button {
   background: var(--accent-100);
   border: none;
@@ -38,5 +33,4 @@ button {
 button:hover {
   background: var(--accent-60);
 }
-
 </style>

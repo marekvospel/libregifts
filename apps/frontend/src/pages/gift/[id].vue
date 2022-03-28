@@ -6,7 +6,7 @@ import GiftDetails from '../../components/GiftDetails.vue'
 import { useStore } from '../../stores/index.store'
 
 interface Props {
-  id: string
+  id: string;
 }
 
 const props = defineProps<Props>()
@@ -21,24 +21,22 @@ onMounted(async () => {
     if (!success) is404.value = true
   }
 })
-
 </script>
 
 <template>
   <div class="gift-layout">
-    <g-header />
+    <GHeader />
     <div v-if="!is404" class="gift-details">
-      <gift-details :="store.gifts.get(props.id)" />
+      <GiftDetails :="store.gifts.get(props.id)" />
     </div>
     <div v-else class="not-found">
-      <p>Tento dárek neexistuje. Vrátit se <router-link to="/">zpět</router-link></p>
+      <p>Tento dárek neexistuje. Vrátit se <RouterLink to="/">zpět</RouterLink></p>
     </div>
   </div>
 </template>
 
 
 <style scoped>
-
 .gift-details {
   padding: 3rem;
 }
@@ -60,5 +58,4 @@ a {
 a:hover {
   color: var(--accent-60);
 }
-
 </style>

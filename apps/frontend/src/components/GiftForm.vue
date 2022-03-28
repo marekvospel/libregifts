@@ -11,8 +11,8 @@ import axios from 'axios'
 const store = useStore()
 
 interface Props {
-  id?: string
-  taken?: boolean
+  id?: string;
+  taken?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -37,14 +37,10 @@ const popup = reactive({
   open: false,
 })
 
-async function giveGift() {
+async function giveGift(): Promise<any> {
   try {
-    await axios.post(`/api/gift/${ encodeURIComponent(props.id) }/give`, JSON.stringify(formData),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    await axios.post(`/api/gift/${ encodeURIComponent(props.id) }/give`, JSON.stringify(formData), { headers: { 'Content-Type': 'application/json' } })
 
     emit('give')
     showPopup('Úspěch', `Úspěšně jste se přihlásil k dodání Dárku ${ store.gifts.get(props.id)?.name }.\n\nBěhem chvíle vám přijde potvrzovací email.`)
@@ -71,7 +67,7 @@ async function giveGift() {
 
 }
 
-function showPopup(title: string, message: string, positive = true) {
+function showPopup(title: string, message: string, positive = true): void {
   popup.title = title
   popup.description = message
   popup.ok = positive
@@ -81,21 +77,19 @@ function showPopup(title: string, message: string, positive = true) {
 
 <template>
   <form v-if="!props.taken" @submit.prevent="giveGift">
-    <g-input v-model:value="formData.name" placeholder="Jméno" :error="!!(error & (1 << 0))" @update:value="error -= !!(error & (1 << 0)) ? (1 << 0) : 0" />
-    <g-input v-model:value="formData.email" placeholder="Email" :error="!!(error & (1 << 1))" @update:value="error -= !!(error & (1 << 1)) ? (1 << 1) : 0" />
-    <g-input v-model:value="formData.phone" placeholder="Tel. číslo" :error="!!(error & (1 << 2))" @update:value="error -= !!(error & (1 << 2)) ? (1 << 2) : 0"/>
-    <g-button>Darovat</g-button>
-    <g-popup v-if="popup.open" :="popup" @close="popup.open = false"/>
+    <GInput v-model:value="formData.name" placeholder="Jméno" :error="!!(error & (1 << 0))" @update:value="error -= !!(error & (1 << 0)) ? (1 << 0) : 0" />
+    <GInput v-model:value="formData.email" placeholder="Email" :error="!!(error & (1 << 1))" @update:value="error -= !!(error & (1 << 1)) ? (1 << 1) : 0" />
+    <GInput v-model:value="formData.phone" placeholder="Tel. číslo" :error="!!(error & (1 << 2))" @update:value="error -= !!(error & (1 << 2)) ? (1 << 2) : 0"/>
+    <GButton>Darovat</GButton>
+    <GPopup v-if="popup.open" :="popup" @close="popup.open = false"/>
   </form>
-  <g-popup v-else-if="popup.open" :="popup" @close="popup.open = false"/>
+  <GPopup v-else-if="popup.open" :="popup" @close="popup.open = false"/>
 </template>
 
 <style scoped>
-
 form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-
 </style>

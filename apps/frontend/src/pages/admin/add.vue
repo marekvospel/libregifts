@@ -19,14 +19,16 @@ const formData = reactive({
 const error = ref(0)
 
 
-async function signIn() {
+async function signIn(): Promise<any> {
   try {
-    const result = await axios.post('/api/gift', JSON.stringify({
+    await axios.post('/api/gift', JSON.stringify({
       name: formData.name,
       description: formData.description,
     }), {
       headers: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         'Content-Type': 'application/json',
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         'Authorization': store.token,
       },
     })
@@ -41,13 +43,13 @@ async function signIn() {
 
 <template>
   <div>
-    <g-header />
+    <GHeader />
     <div class="add-gift">
       <form @submit.prevent="signIn" class="add-gift-form">
-        <g-input placeholder="Jméno" v-model:value="formData.name" :error="!!(error & (1 << 0))" @update:value="error -= !!(error & (1 << 0)) ? (1 << 0) : 0"/>
-        <g-input placeholder="Popis" v-model:value="formData.description" :error="!!(error & (1 << 1))" @update:value="error -= !!(error & (1 << 1)) ? (1 << 1) : 0"/>
+        <GInput placeholder="Jméno" v-model:value="formData.name" :error="!!(error & (1 << 0))" @update:value="error -= !!(error & (1 << 0)) ? (1 << 0) : 0"/>
+        <GInput placeholder="Popis" v-model:value="formData.description" :error="!!(error & (1 << 1))" @update:value="error -= !!(error & (1 << 1)) ? (1 << 1) : 0"/>
         <div class="buttons">
-          <g-button>Přidat</g-button>
+          <GButton>Přidat</GButton>
         </div>
       </form>
     </div>
@@ -55,7 +57,6 @@ async function signIn() {
 </template>
 
 <style scoped>
-
 .add-gift {
   display: flex;
   flex-direction: column;
@@ -80,5 +81,4 @@ async function signIn() {
 
   padding-top: 2.5rem;
 }
-
 </style>

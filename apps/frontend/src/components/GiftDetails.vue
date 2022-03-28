@@ -6,10 +6,10 @@ import { useStore } from '../stores/index.store'
 const store = useStore()
 
 interface Props {
-  id?: string
-  name?: string,
-  description?: string,
-  taken?: boolean
+  id?: string;
+  name?: string;
+  description?: string;
+  taken?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -20,18 +20,17 @@ const props = withDefaults(defineProps<Props>(), {
 
 const forceTaken = ref(props.taken)
 
-function giftGiven() {
+function giftGiven(): void {
   forceTaken.value = true
   store.fetchGift(props.id ?? '')
 }
-
 </script>
 
 <template>
   <div class="list-gift">
     <h3 class="text-h3">{{ props.name}}</h3>
     <p>{{ props.description }}</p>
-    <gift-form class="gift-form" :id="props.id" :taken="props.taken || forceTaken" @give="giftGiven()"/>
+    <GiftForm class="gift-form" :id="props.id" :taken="props.taken || forceTaken" @give="giftGiven()"/>
     <p v-if="props.taken || forceTaken" class="text-h3 gift-form">Tento dárek je již zabraný</p>
   </div>
 </template>

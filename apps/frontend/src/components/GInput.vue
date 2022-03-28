@@ -1,12 +1,11 @@
 <script setup lang="ts">
-
 import { computed } from 'vue'
 
 interface Props {
-  placeholder?: string
-  value?: string
-  error?: boolean
-  type?: string
+  placeholder?: string;
+  value?: string;
+  error?: boolean;
+  type?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -22,7 +21,6 @@ const value = computed({
   get: () => props.value,
   set: (value) => emit('update:value', value),
 })
-
 </script>
 
 <template>
@@ -30,7 +28,6 @@ const value = computed({
 </template>
 
 <style scoped>
-
 input {
 
   padding: 0.75rem;
@@ -50,5 +47,4 @@ input:focus-within {
 input.error {
   outline-color: var(--red-80);
 }
-
 </style>

@@ -21,19 +21,18 @@ onMounted(async () => {
 
 <template>
   <div class="home-layout">
-    <g-header />
+    <GHeader />
     <div class="gifts">
-      <router-link to="/admin/add" class="add-button">
+      <RouterLink to="/admin/add" class="add-button">
         <p>Přidat</p>
-      </router-link>
-      <admin-list-gift v-for="gift in store.gifts.values()" :key="gift.id" :="gift" />
+      </RouterLink>
+      <AdminListGift v-for="gift in store.gifts.values()" :key="gift.id" :="gift" />
     </div>
   </div>
 </template>
 
 
 <style scoped>
-
 .gifts {
   display: flex;
   flex-direction: column;
@@ -45,5 +44,4 @@ onMounted(async () => {
 .add-button {
   text-align: center;
 }
-
 </style>

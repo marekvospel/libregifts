@@ -2,10 +2,10 @@
 import GButton from './GButton.vue'
 
 interface Props {
-  id?: string
-  name?: string,
-  description?: string,
-  taken?: boolean
+  id?: string;
+  name?: string;
+  description?: string;
+  taken?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -13,7 +13,6 @@ const props = withDefaults(defineProps<Props>(), {
   description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda consectetur debitis dolorem ducimus expedita facilis id itaque modi molestias nemo non nulla odio odit officia perspiciatis quas quasi, repellat sapiente tempore tenetur vero voluptates voluptatibus. Dolorem earum maiores voluptatum?',
   taken: false,
 })
-
 </script>
 
 <template>
@@ -21,10 +20,10 @@ const props = withDefaults(defineProps<Props>(), {
     <h3 class="text-h3">{{ props.name}}</h3>
     <p>{{ props.description }}</p>
     <div class="gift-buttons">
-      <router-link v-if="!props.taken" :to="`/gift/${props.id}`">
-        <g-button>Darovat</g-button>
-      </router-link>
-      <g-button v-else class="red-button">Zabráno</g-button>
+      <RouterLink v-if="!props.taken" :to="`/gift/${props.id}`">
+        <GButton>Darovat</GButton>
+      </RouterLink>
+      <GButton v-else class="red-button">Zabráno</GButton>
     </div>
   </div>
 </template>
@@ -61,5 +60,4 @@ h3 {
 .red-button:hover {
   background: var(--red-60);
 }
-
 </style>

@@ -19,13 +19,14 @@ const formData = reactive({
 const error = ref(0)
 
 
-async function signIn() {
+async function signIn(): Promise<any> {
   try {
     const result = await axios.post('/api/sign/in', JSON.stringify({
       email: formData.email,
       password: formData.password,
     }), {
       headers: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         'Content-Type': 'application/json',
       },
     })
@@ -43,13 +44,13 @@ async function signIn() {
 
 <template>
   <div>
-    <g-header />
+    <GHeader />
     <div class="sign-in">
       <form @submit.prevent="signIn" class="sign-in-form">
-        <g-input placeholder="Email" v-model:value="formData.email" :error="!!(error & (1 << 0))" @update:value="error -= !!(error & (1 << 0)) ? (1 << 0) : 0"/>
-        <g-input placeholder="Password" type="password" v-model:value="formData.password" :error="!!(error & (1 << 1))" @update:value="error -= !!(error & (1 << 1)) ? (1 << 1) : 0"/>
+        <GInput placeholder="Email" v-model:value="formData.email" :error="!!(error & (1 << 0))" @update:value="error -= !!(error & (1 << 0)) ? (1 << 0) : 0"/>
+        <GInput placeholder="Password" type="password" v-model:value="formData.password" :error="!!(error & (1 << 1))" @update:value="error -= !!(error & (1 << 1)) ? (1 << 1) : 0"/>
         <div class="buttons">
-          <g-button>Přihlásit se</g-button>
+          <GButton>Přihlásit se</GButton>
         </div>
       </form>
     </div>
@@ -57,7 +58,6 @@ async function signIn() {
 </template>
 
 <style scoped>
-
 .sign-in {
   display: flex;
   flex-direction: column;
@@ -82,5 +82,4 @@ async function signIn() {
 
   padding-top: 2.5rem;
 }
-
 </style>

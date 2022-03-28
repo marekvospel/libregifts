@@ -7,11 +7,11 @@ import axios from 'axios'
 const store = useStore()
 
 interface Props {
-  id?: string
-  name?: string,
-  description?: string,
-  taken?: boolean,
-  giver?: Giver,
+  id?: string;
+  name?: string;
+  description?: string;
+  taken?: boolean;
+  giver?: Giver;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -20,20 +20,16 @@ const props = withDefaults(defineProps<Props>(), {
   taken: false,
 })
 
-async function deleteGift() {
+async function deleteGift(): Promise<any> {
   try {
-    const result = await axios.delete(`/api/gift/${ encodeURIComponent(props.id ?? '') }`, {
-      headers: {
-        'Authorization': store.token,
-      },
-    })
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    await axios.delete(`/api/gift/${ encodeURIComponent(props.id ?? '') }`, { headers: { Authorization: store.token } })
 
     store.removeGift(props.id)
   } catch {
 
   }
 }
-
 </script>
 
 <template>
@@ -46,7 +42,7 @@ async function deleteGift() {
       <p>{{ props.giver.phone }}</p>
     </div>
     <div class="gift-buttons">
-      <g-button @click="deleteGift" class="red-button">Smazat</g-button>
+      <GButton @click="deleteGift" class="red-button">Smazat</GButton>
     </div>
   </div>
 </template>
@@ -83,5 +79,4 @@ h3 {
 .red-button:hover {
   background: var(--red-60);
 }
-
 </style>

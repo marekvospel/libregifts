@@ -1,13 +1,9 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 
 module.exports = {
   root: false,
-  env: {
-    'vue/setup-compiler-macros': true,
-    browser: true,
-  },
-  extends: ['plugin:vue/vue3-essential', '@vue/typescript/recommended'],
-  rules: {
-    '@typescript-eslint/no-explicit-any': ['off'],
-    '@typescript-eslint/ban-ts-comment': ['off'],
-  },
+  env: { browser: true },
+  extends: ['vospel/typescript', 'vospel/vue'],
+  parserOptions: { parser: '@typescript-eslint/parser' },
+  rules: {},
 }
