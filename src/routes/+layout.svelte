@@ -1,5 +1,6 @@
 <script lang="ts">
   import Header from '../components/Header.svelte'
+  import Image from '$/assets/img/dolnibrezany.jpg'
 </script>
 
 
@@ -21,7 +22,7 @@
 
   .dolnibrezany-img {
       width: calc(100vw - 12px);
-      background-image: url("/img/dolnibrezany.jpg"), url("/img/dolnibrezany-blurred.jpg");
+      background-image: url("$/assets/img/dolnibrezany.jpg"), url("$/assets/img/dolnibrezany-blurred.jpg");
       background-repeat: no-repeat, repeat;
       background-position: center, center;
       background-size: 100%, auto;
