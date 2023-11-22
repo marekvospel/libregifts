@@ -86,6 +86,10 @@
 <div class='grid grid-cols-1 md:grid-cols-2 gap-5 text-white'>
 	<div class='bg-db-blue-light px-4 py-8'>
 		<p>{ gift.name }</p>
+		{#if gift.link}
+			<a href="{gift.link}" class="underline">(odkaz)</a>
+			<div class="h-4"></div>
+		{/if}
 		<p>{ gift.childName } ({ gift.childAge}let)</p>
 	</div>
 	{#if !gift.taken}
