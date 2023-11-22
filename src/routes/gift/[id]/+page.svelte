@@ -1,26 +1,15 @@
-<script lang="ts" context="module">
-
-	let db;
-
-	/** @type {import('@sveltejs/kit').RequestHandler} */
-	export async function load({ page }) {
-
-		if (!page.params.id) return {}
-
-		return { props: { ...page?.params } }
-	}
-</script>
 
 <script lang="ts">
+	import type { PageData } from './$types'
 	import {initializeApp} from "@firebase/app";
 	import {doc, getDoc, getFirestore, onSnapshot} from "@firebase/firestore";
 	import {onMount} from 'svelte';
 	import * as yup from 'yup'
-	import type {giftI} from "../../types";
-	import {firebaseConfig} from "../../firebase";
+	import type {giftI} from "../../../types";
+	import {firebaseConfig} from "../../../firebase";
 
-	export let id = ''
-	export let gift: giftI = { childAge: '', childName: '', id: '', name: '', taken: false }
+	export let data: PageData
+	let gift: giftI = { childAge: '', childName: '', id: '', name: '', taken: false }
 
 	let formValues = {
 		name: '',
@@ -36,7 +25,7 @@
 
 		const db = getFirestore()
 
-		const giftRef = doc(db, 'gifts', id)
+		const giftRef = doc(db, 'gifts', data.id)
 
 		const g1 = await getDoc(giftRef)
 
@@ -56,7 +45,8 @@
 		phone: yup.string().required("Telefon je povinný!"),
 		email: yup.string().required("Email je povinný!").email("Email není platný!"),
 	})
-	let errors = {}
+	// TODO: type
+	let errors: any = {}
 
 	async function validate(): Promise<void> {
 		try {
@@ -76,7 +66,7 @@
 
 		sending = true
 
-		fetch(`https://us-central1-strom-splnenych-prani-db.cloudfunctions.net/gift/${id}`, { method: 'POST', body: JSON.stringify({
+		fetch(`https://us-central1-strom-splnenych-prani-db.cloudfunctions.net/gift/${data.id}`, { method: 'POST', body: JSON.stringify({
 				name: formValues.name,
 				phone: formValues.phone,
 				email: formValues.email
